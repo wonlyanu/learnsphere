@@ -1,0 +1,6 @@
+[submodule "anime"]
+	path = anime
+	url = https://github.com/wonlyanu/anime.git
+[submodule "scientific"]
+	path = scientific
+	url = https://github.com/wonlyanu/scientific.git
