@@ -1,0 +1,3 @@
+- [x] Add scripts to main package.json to run anime and scientific subapps
+- [x] Modify Onboarding.jsx to save playground selection and redirect to subapp in final step
+- [x] Test the routing by running the apps

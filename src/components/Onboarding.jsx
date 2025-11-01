@@ -102,18 +102,35 @@ export default function Onboarding({ goToTechnology }) {
         // Save the selected technology before moving on
         localStorage.setItem("selectedTechnology", selected);
       }
+      // If we're moving from the playground question (step 7)
+      if (step === 7) {
+        // Save the selected playground
+        localStorage.setItem("selectedPlayground", selected);
+      }
       setStep((s) => s + 1);
       setSelected(null); // Clear selection for the next step
     } else {
       // Final Step Logic
-      setShowConfetti(true); 
+      setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2500);
 
-      // Navigate to Technology page using the stored selection from step 1
-      if (typeof goToTechnology === "function") {
-        const selectedTechId = localStorage.getItem("selectedTechnology") || "sec"; // Default to 'sec'
-        localStorage.removeItem("selectedTechnology"); // Clean up storage
-        goToTechnology(selectedTechId); 
+      // Check if playground was selected
+      const selectedPlayground = localStorage.getItem("selectedPlayground");
+      if (selectedPlayground) {
+        // Redirect to subapp based on playground
+        if (selectedPlayground === "anime") {
+          window.location.href = "http://localhost:3000"; // Anime runs on 3000
+        } else if (selectedPlayground === "scientific") {
+          window.location.href = "http://localhost:5174"; // Scientific runs on 5174
+        }
+        localStorage.removeItem("selectedPlayground"); // Clean up
+      } else {
+        // Fallback to technology page
+        if (typeof goToTechnology === "function") {
+          const selectedTechId = localStorage.getItem("selectedTechnology") || "sec"; // Default to 'sec'
+          localStorage.removeItem("selectedTechnology"); // Clean up storage
+          goToTechnology(selectedTechId);
+        }
       }
     }
   };
