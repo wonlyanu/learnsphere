@@ -1,22 +1,39 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import WebDevelopment from "./WebDevelopment";
+import Webdev from "./Webdev";
+import Cybersecurity from "./Cybersecurity";
 import "./Technology.css";
 
 // Removed: Navbar, Footer, and Home.css imports
 
-export default function Technology() {
-  const [webPage, setWebPage] = useState(false);
+export default function Technology({ goBackHome }) {
+  const [webPage, setWebPage] = useState(false);
+  const [cyberPage, setCyberPage] = useState(false);
 
-  // If webPage is true, render the WebDevelopment component
-  if (webPage) {
-    // Note: Since the overall app structure is unknown, this logic assumes WebDevelopment
-    // is a temporary view and we pass a function to go back to the Technology view.
-    return <WebDevelopment goBack={() => setWebPage(false)} />;
-  }
+  // If webPage is true, render the Webdev component
+  if (webPage) {
+    // Note: Since the overall app structure is unknown, this logic assumes Webdev
+    // is a temporary view and we pass a function to go back to the Technology view.
+    return <Webdev goBack={() => setWebPage(false)} />;
+  }
+
+  // If cyberPage is true, render the Cybersecurity component
+  if (cyberPage) {
+    return <Cybersecurity goBack={() => setCyberPage(false)} goBackHome={goBackHome} />;
+  }
 
   return (
     <div className="technology-page">
+      {/* Back Button */}
+      <motion.button
+        className="back-btn back-to-home-btn"
+        onClick={goBackHome}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        &#9664; BACK TO HOME
+      </motion.button>
+
       {/* Background Video */}
       <video className="bg-video" autoPlay loop muted playsInline>
         <source src="/videos/techback.mp4" type="video/mp4" />
@@ -56,11 +73,12 @@ export default function Technology() {
           </motion.button>
         </motion.div>
 
-        <motion.div
-          className="tech-card cyber"
-          whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(255, 255, 255, 0.4)" }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.div
+          className="tech-card cyber"
+          whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(255, 255, 255, 0.4)" }}
+          transition={{ duration: 0.2 }}
+          onClick={() => setCyberPage(true)}
+        >
           <h2 className="card-title">CYBER SECURITY</h2>
           <p className="card-description">
             **[PATH: DEFENDER]** Learn network defense, ethical hacking, and vulnerability assessment to secure digital domains.
