@@ -1,0 +1,61 @@
+.mainpage-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #0b1020 0%, #101624 50%, #0b0f1a 100%);
+  color: #fff;
+  padding: 2rem;
+}
+
+.mainpage-title {
+  font-family: 'OnePieceFont', sans-serif;
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.mainpage-cards {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mainpage-card {
+  width: 320px;
+  min-height: 220px;
+  background: rgba(255,255,255,0.04);
+  border: 2px solid rgba(255,255,255,0.12);
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mainpage-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0.06);
+}
+
+.mainpage-card h2 {
+  margin: 0 0 0.6rem 0;
+}
+
+.mainpage-card p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.mainpage-card.cybersecurity {
+  border-color: #00c27a;
+}
+
+.mainpage-card.webdev {
+  border-color: #4da6ff;
+}

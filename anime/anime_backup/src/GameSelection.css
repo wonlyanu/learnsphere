@@ -1,0 +1,76 @@
+n.fade-enter {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 500ms, transform 500ms;
+}
+
+/* Glowing card animation */
+.card-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px red;
+  }
+  to {
+    box-shadow: 0 0 30px red, 0 0 40px red;
+  }
+}
+
+/* Vertical slide for navigation */
+.slide-up-enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.slide-up-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 600ms ease-out, opacity 600ms ease-out;
+}
+
+/* Ship animation */
+.ship-move {
+  animation: ship-sail 10s linear infinite;
+}
+
+@keyframes ship-sail {
+  from {
+    right: -200px;
+  }
+  to {
+    right: 100vw;
+  }
+}
+
+.expand {
+  animation: expand 1s ease-out forwards;
+}
+
+@keyframes expand {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
