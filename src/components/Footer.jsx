@@ -2,7 +2,7 @@ import React from "react";
 // Assuming CSS styles are imported elsewhere or are global
 // reuse existing styles
 
-const Footer = ({ goToTechnology, goToAbout, goToContact }) => {
+const Footer = ({ goToTechnology, goToResources, goToAbout, goToContact, goToCybersecurity, goToWebdev }) => {
   
   // Helper function to handle scrolling and then page navigation
   const handleNavigation = (navigateFn, ...args) => {
@@ -30,7 +30,7 @@ const Footer = ({ goToTechnology, goToAbout, goToContact }) => {
             <ul>
               {/* Updated to use handleNavigation */}
               <li onClick={() => handleNavigation(goToAbout)}>About</li>
-              <li onClick={() => handleNavigation(goToTechnology, null)}>Technologies</li>
+              <li onClick={() => handleNavigation(goToResources)}>Resources</li>
               <li onClick={() => handleNavigation(goToContact)}>Contact Us</li>
             </ul>
           </div>
@@ -38,8 +38,8 @@ const Footer = ({ goToTechnology, goToAbout, goToContact }) => {
             <h3>Learn</h3>
             <ul>
               {/* Updated to use handleNavigation */}
-              <li onClick={() => handleNavigation(goToTechnology, "cyber")}>Cyber Security</li>
-              <li onClick={() => handleNavigation(goToTechnology, "web")}>Web Development</li>
+              <li onClick={() => handleNavigation(goToCybersecurity)}>Cyber Security</li>
+              <li onClick={() => handleNavigation(goToWebdev)}>Web Development</li>
             </ul>
           </div>
         </div>

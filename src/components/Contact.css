@@ -21,7 +21,7 @@
 }
 
 /* Background Video */
-.contact-background {
+.bg-video {
   position: fixed; /* Changed to fixed so it doesn't scroll */
   top: 0;
   left: 0;
@@ -29,8 +29,8 @@
   width: 100%;
   object-fit: cover;
   z-index: 0;
-  /* B&W filter: high contrast, low brightness for a dark, stylized look */
-  filter: grayscale(1) brightness(0.25) contrast(1.5);
+  /* Colorful filter: high contrast, low brightness for a stylized look */
+  filter: brightness(0.9) contrast(1.5);
 }
 
 /* Overlay for readability */

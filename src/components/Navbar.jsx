@@ -4,6 +4,7 @@ import "./Home.css";
 const Navbar = ({
   goToProfile,
   goToTechnology,
+  goToResources,
   goToAbout,
   goToContact,
   goBackHome,
@@ -119,7 +120,7 @@ const Navbar = ({
               <a
                 href="#"
                 onClick={() =>
-                  handleProtectedClick(() => goToTechnology("web"))
+                  handleProtectedClick(() => window.location.href = "http://localhost:3000/web-development")
                 }
               >
                 Web Development
@@ -127,7 +128,7 @@ const Navbar = ({
               <a
                 href="#"
                 onClick={() =>
-                  handleProtectedClick(() => goToTechnology("cyber"))
+                  handleProtectedClick(() => window.location.href = "http://localhost:3000/cybersecurity")
                 }
               >
                 Cyber Security
@@ -158,8 +159,8 @@ const Navbar = ({
               <a href="#" onClick={goToAbout}>
                 About
               </a>
-              <a href="#" onClick={() => goToTechnology(null)}>
-                Technologies
+              <a href="#" onClick={goToResources}>
+                Resources
               </a>
               <a href="#" onClick={goToContact}>
                 Contact Us

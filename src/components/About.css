@@ -42,8 +42,8 @@
 .about-content {
   max-width: 850px;
   text-align: center;
-  /* Glass effect for B&W: mostly transparent white */
-  background: rgba(255, 255, 255, 0.02);
+  /* Black background for better contrast */
+  background: black;
   backdrop-filter: blur(16px) saturate(1.5);
   padding: 3.5rem 2.5rem;
   border-radius: 20px;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion"; // Added motion import for animations
 import "./Contact.css";
+import "./About.css";
 
 // Removed: Navbar, Footer, and Home.css imports
 
@@ -50,10 +51,10 @@ export default function Contact() {
   return (
     <div className="contact-page">
       {/* Background Video */}
-      <video autoPlay loop muted playsInline className="contact-background">
-        <source src="/videos/conback.mp4" type="video/mp4" />
+      <video className="bg-video" autoPlay loop muted playsInline>
+        <source src="/videos/respage.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
-
       {/* Dark Overlay */}
       <div className="contact-overlay"></div>
 

@@ -13,7 +13,7 @@ export default function About() {
     <div className="about-page">
       {/* Background Video */}
       <video className="bg-video" autoPlay loop muted playsInline>
-        <source src="/videos/aboutback.mp4" type="video/mp4" />
+        <source src="/videos/respage.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

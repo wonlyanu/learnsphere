@@ -24,7 +24,10 @@ const TypewriterText = ({ text = "", speed = 50 }) => {
 const Home = ({
   goToProfile,
   goToOnboarding,
-  goToTechnology,
+  goToCybersecurity,
+  goToWebdev,
+  goToCybergames,
+  goToWebgames,
   goToAbout,
   goToContact,
   goBackHome,
@@ -165,22 +168,12 @@ const Home = ({
       </h3>
     </div>
 
-    <div
-      className="course-cards"
-      onClick={() => {
-        const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
-        if (savedUser?.loggedIn) goToTechnology();
-        else window.openSignupPopup(); // same as Get Started
-      }}
-      style={{ cursor: "pointer" }}
-    >
+    <div className="course-cards">
       <div
         className="course-card"
         onClick={(e) => {
           e.stopPropagation();
-          const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
-          if (savedUser?.loggedIn) goToTechnology("cyber");
-          else window.openSignupPopup();
+          goToCybergames();
         }}
       >
         <video
@@ -204,9 +197,7 @@ const Home = ({
         className="course-card"
         onClick={(e) => {
           e.stopPropagation();
-          const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
-          if (savedUser?.loggedIn) goToTechnology("web");
-          else window.openSignupPopup();
+          goToWebgames();
         }}
       >
         <video
@@ -222,6 +213,31 @@ const Home = ({
           <p>
             Master HTML, CSS, and JavaScript to build responsive, modern web
             applications.
+          </p>
+        </div>
+      </div>
+
+      <div
+        className="course-card"
+        onClick={(e) => {
+          e.stopPropagation();
+          const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
+          if (savedUser?.loggedIn) goToCybergames();
+          else window.openSignupPopup();
+        }}
+      >
+        <video
+          src="/videos/games.mp4"
+          className="course-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="course-info">
+          <h3>Cyber Games</h3>
+          <p>
+            Challenge yourself with interactive cybersecurity games. Learn through play and earn achievements.
           </p>
         </div>
       </div>

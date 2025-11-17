@@ -44,6 +44,7 @@ body::-webkit-scrollbar {
   backdrop-filter: blur(6px);
   z-index: 1000; /* stay above all content */
   transition: background 0.3s ease;
+   text-shadow: none;
 }
 
 .navbar:hover {
@@ -73,6 +74,7 @@ body::-webkit-scrollbar {
   font-weight: 500;
   cursor: pointer;
   transition: color 0.3s;
+   text-shadow: none;
 }
 
 .nav-btn:hover {
@@ -194,12 +196,14 @@ body::-webkit-scrollbar {
   z-index: 5;
   overflow: hidden;
   padding: 40px;
+   text-shadow: none;
 }
 
 /* Inner wrapper */
 .explore-inner {
   max-width: 1200px;
   width: 100%;
+   text-shadow: none;
 }
 
 
@@ -219,6 +223,7 @@ body::-webkit-scrollbar {
   letter-spacing: 2px;
   line-height: 1.8;
   margin-bottom: 30px;
+  text-shadow: none;
 }
 
 /* 🎮 Course Cards */
