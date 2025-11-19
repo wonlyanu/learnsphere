@@ -26,7 +26,7 @@ const CyberGamesHub = ({ goBack }) => {
       id: 'escape',
       title: 'Cyber Escape Room',
       description: 'Solve puzzles to escape the digital facility',
-      icon: '🚪',
+     
       gif: fireAnimation,
       component: <CyberEscapeRoom onComplete={(score, achievement) => updateScore(score, achievement)} />
     },
@@ -34,7 +34,7 @@ const CyberGamesHub = ({ goBack }) => {
       id: 'balloon',
       title: 'Cyber Hot Balloon',
       description: 'Navigate through airspace avoiding cyber threats',
-      icon: '🎈',
+     
       gif: balloonAnimation,
       locked: !gameData.unlockedGames.includes('balloon'),
       component: <CyberBalloonGame onComplete={(score, achievement) => updateScore(score, achievement)} />
@@ -43,7 +43,7 @@ const CyberGamesHub = ({ goBack }) => {
       id: 'firewall',
       title: 'Firewall Defender',
       description: 'Block incoming cyber attacks in real-time',
-      icon: '🛡️',
+      
       gif: shieldAnimation,
       locked: !gameData.unlockedGames.includes('firewall'),
       component: <FirewallDefenderGame onComplete={(score, achievement) => updateScore(score, achievement)} />
@@ -52,7 +52,7 @@ const CyberGamesHub = ({ goBack }) => {
       id: 'phishing',
       title: 'Phishing Hunter',
       description: 'Identify malicious emails before they cause damage',
-      icon: '🎣',
+     
       gif: hackerAnimation,
       locked: !gameData.unlockedGames.includes('phishing'),
       component: <PhishingHunterGame onComplete={(score, achievement) => updateScore(score, achievement)} />
@@ -61,7 +61,7 @@ const CyberGamesHub = ({ goBack }) => {
       id: 'password',
       title: 'Password Fortress',
       description: 'Protect accounts against brute force attacks',
-      icon: '🔐',
+   
       gif: lockAnimation,
       locked: !gameData.unlockedGames.includes('password'),
       component: <PasswordFortressGame onComplete={(score, achievement) => updateScore(score, achievement)} />
@@ -134,7 +134,7 @@ const CyberGamesHub = ({ goBack }) => {
         loop
         playsInline
       >
-        <source src="/videos/cybergame-background.mp4" type="video/mp4" />
+        <source src="/videos/respage.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -143,21 +143,23 @@ const CyberGamesHub = ({ goBack }) => {
 
       <header className="hub-header">
         <button className="back-btn" onClick={goBack}>← Back to Home</button>
-        <h1><center> CYBER SECURITY GAMES</center> </h1>
-        <div className="player-stats">
-          <div className="stat-badge">
-            <span className="label">Level:</span>
-            <span className="value">{gameData.level}</span>
-          </div>
-          <div className="stat-badge">
-            <span className="label">Score:</span>
-            <span className="value">{gameData.score}</span>
-          </div>
-          <button className="achievements-btn" onClick={() => setShowAchievements(!showAchievements)}>
-            🏆 Achievements ({gameData.achievements.length})
-          </button>
-        </div>
+        <h1><center> CYBER SECURE GAMES</center> </h1>
       </header>
+
+      <div className="player-stats-container">
+        <div className="stat-badge">
+          <span className="label">Level:</span>
+          <span className="value">{gameData.level}</span>
+        </div>
+        <div className="stat-badge">
+          <span className="label">Score:</span>
+          <span className="value">{gameData.score}</span>
+        </div>
+        <div className="stat-badge achievements-badge" onClick={() => setShowAchievements(!showAchievements)}>
+          <span className="label">Achievements:</span>
+          <span className="value">{gameData.achievements.length}</span>
+        </div>
+      </div>
 
       {showAchievements && (
         <div className="achievements-overlay">
@@ -209,7 +211,6 @@ const CyberGamesHub = ({ goBack }) => {
                   <div className="card-icon">{game.icon}</div>
                   <h3>{game.title}</h3>
                   <p>{game.description}</p>
-                  <div className="play-button">PLAY NOW</div>
                 </div>
               )}
             </div>
@@ -225,7 +226,7 @@ const CyberGamesHub = ({ goBack }) => {
           ></div>
         </div>
         <p>Next Level: {(gameData.level) * 200} points</p>
-        <p>© 2025 Cybersecurity Training Center | All games for educational purposes</p>
+      
       </footer>
     </div>
   );

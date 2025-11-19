@@ -124,6 +124,19 @@ const WebDevGamesHub = ({ goBack }) => {
 
   return (
     <div className="webdev-games-hub">
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        className="bg-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="/videos/respage.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       {/* Background Smoke Effect */}
       <div className="background-smoke"></div>
 

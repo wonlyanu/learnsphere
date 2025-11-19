@@ -139,7 +139,7 @@ export default function Cybersecurity({
       <div className="background-animation"></div>
       
       <video className="bg-video" autoPlay loop muted playsInline>
-        <source src="/videos/techback.mp4" type="video/mp4" />
+        <source src="/videos/respage.mp4" type="video/mp4" />
       </video>
 
       <motion.button
@@ -353,7 +353,7 @@ export default function Cybersecurity({
           height: 100%;
           object-fit: cover;
           z-index: -1;
-          filter: brightness(0.25) saturate(1.2);
+          filter: brightness(0.15) saturate(1.2);
         }
 
         .back-btn {
@@ -403,7 +403,7 @@ export default function Cybersecurity({
         .stat-value {
           font-weight: 700;
           font-size: 1.2rem;
-          color: #4fc3f7;
+          color: #b29625ff;
         }
 
         .progress-container {
@@ -440,7 +440,7 @@ export default function Cybersecurity({
         .title {
           font-size: 3.5rem;
           margin-bottom: 10px;
-          background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+          background: linear-gradient(90deg, #9f2ca3ff, #65095dff);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           text-shadow: none;
@@ -475,7 +475,7 @@ export default function Cybersecurity({
           display: block;
           font-size: 2rem;
           font-weight: 700;
-          color: #4fc3f7;
+          color: #6c087eff;
           margin-bottom: 5px;
         }
 
@@ -504,7 +504,7 @@ export default function Cybersecurity({
 
         .cyber-card {
           background: rgba(0, 0, 0, 0.7);
-          border: 1px solid rgba(79, 195, 247, 0.3);
+          border: 1px solid rgba(114, 8, 86, 0.3);
           border-radius: 20px;
           padding: 30px;
           width: 300px;
@@ -519,12 +519,12 @@ export default function Cybersecurity({
 
         .cyber-card:hover {
           transform: translateY(-15px);
-          border-color: #4fc3f7;
-          box-shadow: 0 15px 40px rgba(79, 195, 247, 0.4);
+          border-color: #9c27b0;
+          box-shadow: 0 15px 40px rgba(156, 39, 176, 0.4);
         }
 
         .cyber-card.completed {
-          border-color: #00e676;
+          border-color: #045f33ff;
           background: rgba(0, 30, 0, 0.6);
         }
 
@@ -589,7 +589,7 @@ export default function Cybersecurity({
 
         .hexagon:after {
           top: 100%;
-          border-top: 23px solid rgba(79, 195, 247, 0.2);
+          border-top: 23px solid rgba(179, 172, 180, 0.2);
         }
 
         .icon {
@@ -598,14 +598,14 @@ export default function Cybersecurity({
           left: 50%;
           transform: translate(-50%, -50%);
           font-size: 2rem;
-          color: #4fc3f7;
+          color: #a50fc0ff;
           z-index: 2;
         }
 
         .card-title {
           font-size: 1.5rem;
           margin: 20px 0 10px;
-          color: #e0f7fa;
+          color: #f5eff6ff;
         }
 
         .cyber-card.completed .card-title {
@@ -613,7 +613,7 @@ export default function Cybersecurity({
         }
 
         .card-description {
-          color: #b2ebf2;
+          color: #fcfafcff;
           font-size: 0.95rem;
           line-height: 1.5;
           margin-bottom: 20px;
@@ -627,7 +627,7 @@ export default function Cybersecurity({
         }
 
         .xp-reward {
-          background: rgba(79, 195, 247, 0.2);
+          background: rgba(188, 153, 85, 0.2);
           padding: 5px 12px;
           border-radius: 20px;
           font-size: 0.9rem;
@@ -635,9 +635,9 @@ export default function Cybersecurity({
         }
 
         .complete-btn {
-          background: rgba(255, 255, 255, 0.1);
-          color: #4fc3f7;
-          border: 1px solid rgba(79, 195, 247, 0.5);
+          background: rgba(45, 66, 14, 0.1);
+          color: #69f76eff;
+          border: 1px solid rgba(228, 149, 248, 0.5);
           padding: 8px 15px;
           border-radius: 20px;
           cursor: pointer;
@@ -647,7 +647,7 @@ export default function Cybersecurity({
         }
 
         .complete-btn:hover {
-          background: rgba(79, 195, 247, 0.2);
+          background: rgba(191, 79, 247, 0.2);
         }
 
         .complete-btn.completed {
@@ -673,7 +673,7 @@ export default function Cybersecurity({
         }
 
         .arrow-btn:hover {
-          background: rgba(79, 195, 247, 0.3);
+          background: rgba(191, 79, 247, 0.2);
           transform: scale(1.1);
         }
 
@@ -705,7 +705,7 @@ export default function Cybersecurity({
         .achievement-content p {
           margin: 0;
           font-size: 0.9rem;
-          color: #b2ebf2;
+          color: #f1b2f2ff;
         }
 
         /* Video Modal */
@@ -759,7 +759,7 @@ export default function Cybersecurity({
         }
 
         .video-meta p {
-          color: #b2ebf2;
+          color: #f2b2f2ff;
           line-height: 1.6;
           margin-bottom: 20px;
         }

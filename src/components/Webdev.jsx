@@ -140,7 +140,7 @@ export default function Webdev({
       <div className="background-animation"></div>
       
       <video className="bg-video" autoPlay loop muted playsInline>
-        <source src="/videos/techback.mp4" type="video/mp4" />
+        <source src="/videos/respage.mp4" type="video/mp4" />
       </video>
 
       <motion.button
@@ -360,7 +360,7 @@ export default function Webdev({
           height: 100%;
           object-fit: cover;
           z-index: -1;
-          filter: brightness(0.25) saturate(1.2);
+          filter: brightness(0.15) saturate(1.2);
         }
 
         .back-btn {
@@ -410,7 +410,7 @@ export default function Webdev({
         .stat-value {
           font-weight: 700;
           font-size: 1.2rem;
-          color: #4fc3f7;
+          color: #b29625ff;
         }
 
         .progress-container {
@@ -447,7 +447,7 @@ export default function Webdev({
         .title {
           font-size: 3.5rem;
           margin-bottom: 10px;
-          background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+          background: linear-gradient(90deg, #9f2ca3ff, #65095dff);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           text-shadow: none;
@@ -482,7 +482,7 @@ export default function Webdev({
           display: block;
           font-size: 2rem;
           font-weight: 700;
-          color: #4fc3f7;
+          color: #6c087eff;
           margin-bottom: 5px;
         }
 
@@ -511,7 +511,7 @@ export default function Webdev({
 
         .web-card {
           background: rgba(0, 0, 0, 0.7);
-          border: 1px solid rgba(79, 195, 247, 0.3);
+          border: 1px solid rgba(114, 8, 86, 0.3);
           border-radius: 20px;
           padding: 30px;
           width: 300px;
@@ -526,8 +526,8 @@ export default function Webdev({
 
         .web-card:hover {
           transform: translateY(-15px);
-          border-color: #4fc3f7;
-          box-shadow: 0 15px 40px rgba(79, 195, 247, 0.4);
+          border-color: #9c27b0;
+          box-shadow: 0 15px 40px rgba(156, 39, 176, 0.4);
         }
 
         .web-card.completed {
@@ -605,7 +605,7 @@ export default function Webdev({
           left: 50%;
           transform: translate(-50%, -50%);
           font-size: 2rem;
-          color: #4fc3f7;
+          color: #a50fc0ff;
           z-index: 2;
         }
 
@@ -643,8 +643,8 @@ export default function Webdev({
 
         .complete-btn {
           background: rgba(255, 255, 255, 0.1);
-          color: #4fc3f7;
-          border: 1px solid rgba(79, 195, 247, 0.5);
+          color: #69f76eff;
+          border: 1px solid rgba(228, 149, 248, 0.5);
           padding: 8px 15px;
           border-radius: 20px;
           cursor: pointer;
@@ -654,7 +654,7 @@ export default function Webdev({
         }
 
         .complete-btn:hover {
-          background: rgba(79, 195, 247, 0.2);
+          background: rgba(191, 79, 247, 0.2);
         }
 
         .complete-btn.completed {
@@ -680,7 +680,7 @@ export default function Webdev({
         }
 
         .arrow-btn:hover {
-          background: rgba(79, 195, 247, 0.3);
+         background: rgba(191, 79, 247, 0.2);
           transform: scale(1.1);
         }
 
@@ -712,7 +712,7 @@ export default function Webdev({
         .achievement-content p {
           margin: 0;
           font-size: 0.9rem;
-          color: #b2ebf2;
+          color: #f1b2f2ff;
         }
 
         /* Video Modal */
@@ -766,7 +766,7 @@ export default function Webdev({
         }
 
         .video-meta p {
-          color: #b2ebf2;
+          color: #f2b2e2ff;
           line-height: 1.6;
           margin-bottom: 20px;
         }
