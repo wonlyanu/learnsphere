@@ -511,4 +511,91 @@ body::-webkit-scrollbar {
     transform: translateY(-2px);
   }
 }
+/* ---------- Forgot Password Popup ---------- */
+.forgot-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.forgot-container {
+  background: rgba(20, 20, 20, 0.95);
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  animation: fadeInPopup 0.4s ease;
+}
+
+.forgot-container h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #00ffff;
+}
+
+.forgot-container p {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.forgot-container input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.forgot-container button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #00bfff, #0077ff);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.forgot-container button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #009ad6, #005eff);
+}
+
+.close-forgot {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.success-message {
+  margin-top: 15px;
+  color: #00ffff;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeInPopup {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
 

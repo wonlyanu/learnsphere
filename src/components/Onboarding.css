@@ -209,3 +209,108 @@
     gap: 12px;
   }
 }
+/* Onboarding.css */
+
+/* --- Email Input Styling --- */
+
+.onb-email-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+    gap: 15px; /* Spacing between input and button/subtext */
+}
+
+.onb-email-input {
+    width: 80%; /* Adjusted for better centering on the card */
+    max-width: 350px;
+    padding: 12px 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Glass effect border */
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08); /* Light glass background */
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.onb-email-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.onb-email-input:focus {
+    outline: none;
+    border-color: var(--neon-blue); /* Neon focus border */
+    box-shadow: 0 0 15px var(--neon-blue-light), 0 0 5px rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Adjust the SEND button to be distinct */
+.onb-continue.send-btn {
+    /* You can reuse your existing .onb-continue styles but maybe apply a specific color */
+    background: var(--neon-green); /* Example: Use a green neon color */
+    color: #1a1a2e; /* Dark text for contrast */
+    font-weight: bold;
+    width: 60%; 
+    max-width: 250px;
+    margin-top: 10px;
+}
+
+.onb-continue.send-btn:disabled {
+    background: rgba(100, 100, 100, 0.5);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* --- AI Notification Styling (N SENT NOTIFICATION) --- */
+
+.ai-notification-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.3); /* Darker background for contrast */
+    border-radius: 15px;
+    border: 1px solid var(--neon-blue-light);
+    box-shadow: 0 0 15px var(--neon-blue-light);
+    width: 90%;
+    max-width: 400px;
+    margin: 30px auto 0;
+}
+
+.ai-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: pulse-glow 1.5s infinite alternate; /* Simple glowing effect */
+}
+
+.ai-message {
+    font-size: 1.1em;
+    color: #f0f0f0;
+    line-height: 1.4;
+}
+
+.ai-message strong {
+    color: var(--neon-green); /* Highlight the confirmed email */
+    font-weight: 700;
+}
+
+/* Define key neon/color variables if not already defined (optional, but good practice) */
+:root {
+    --neon-blue: #00bfff;
+    --neon-blue-light: rgba(0, 191, 255, 0.6);
+    --neon-green: #0ea6e2;
+}
+
+/* Example animation for the AI icon */
+@keyframes pulse-glow {
+    from {
+        text-shadow: 0 0 5px var(--neon-blue-light);
+    }
+    to {
+        text-shadow: 0 0 20px var(--neon-blue), 0 0 10px var(--neon-blue);
+    }
+}

@@ -1,65 +1,69 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion"; // Added motion import for animations
+import { motion } from "framer-motion";
 import "./Contact.css";
 
-// Removed: Navbar, Footer, and Home.css imports
-
 export default function Contact() {
-  // Removed: goBack prop
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "", 
+    subject: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(null); // State for displaying error messages
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (error) setError(null); // Clear error on typing
+    if (error) setError(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null);
 
-    // Validation
     const { name, email, subject, message } = formData;
     if (!name || !email || !subject || !message) {
-      // Set state to display error instead of using alert()
       setError("⚠️ All fields are mandatory for secure transmission.");
       return;
     }
 
-    // You can replace this with an API call here
-    console.log("Transmission Initiated:", formData);
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    setSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+      const data = await response.json();
 
-    // Hide confirmation after few seconds
-    setTimeout(() => setSubmitted(false), 4000);
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+
+        setTimeout(() => setSubmitted(false), 4000);
+      } else {
+        setError(data.error || "❌ Transmission failed. Try again.");
+      }
+    } catch (err) {
+      setError("❌ Server unreachable. Check backend.");
+    }
   };
 
   return (
     <div className="contact-page">
-      {/* Background Video */}
       <video autoPlay loop muted playsInline className="contact-background">
         <source src="/videos/conback.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark Overlay */}
       <div className="contact-overlay"></div>
 
-      {/* Contact Content */}
       <div className="contact-content">
-        <motion.div 
+        <motion.div
           className="contact-box"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -67,7 +71,8 @@ export default function Contact() {
         >
           <h1 className="contact-title">ENCRYPTED TRANSMISSION PROTOCOL</h1>
           <p className="contact-subtitle">
-            Attention Agent: Use this terminal to report bugs, submit feedback, or request new quest lines. All transmissions are highly classified.
+            Attention Agent: Use this terminal to report bugs, submit feedback,
+            or request new quest lines. All transmissions are highly classified.
           </p>
 
           <form className="contact-form" onSubmit={handleSubmit}>
@@ -109,23 +114,21 @@ export default function Contact() {
             </button>
           </form>
 
-          {/* Error Message Display */}
           {error && (
-            <motion.p 
-                className="error-message"
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
+            <motion.p
+              className="error-message"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
             >
               {error}
             </motion.p>
           )}
 
-          {/* Success Message */}
           {submitted && (
-            <motion.p 
-                className="success-message"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
+            <motion.p
+              className="success-message"
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
             >
               ✅ Transmission received. Awaiting command response.
             </motion.p>

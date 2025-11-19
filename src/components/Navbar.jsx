@@ -13,6 +13,8 @@ const Navbar = ({
   const [avatarLetter, setAvatarLetter] = useState("");
   const [showSignup, setShowSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [showForgot, setShowForgot] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,32 +48,77 @@ const Navbar = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!formData.email || !formData.password || (!isLogin && !formData.name)) {
+    alert("Please fill all fields!");
+    return;
+  }
+
+  if (!isLogin && formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  const endpoint = isLogin
+    ? "http://localhost:5000/api/auth/login"
+    : "http://localhost:5000/api/auth/register";
+
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message);
+      return;
+    }
+
+    alert(data.message);
+
+    if (isLogin) {
+      const userAvatar = data.user.name
+        ? data.user.name[0].toUpperCase()
+        : data.user.email[0].toUpperCase();
+
+      const userData = {
+        loggedIn: true,
+        avatarLetter: userAvatar,
+        email: data.user.email,
+      };
+
+      localStorage.setItem("learnsphereUser", JSON.stringify(userData));
+      setLoggedIn(true);
+      setAvatarLetter(userAvatar);
+      setShowSignup(false);
+      setAiMessage(`Welcome, ${data.user.name || data.user.email}! 🤖`);
+      setTimeout(() => setAiMessage(""), 3000);
+    } else {
+      setIsLogin(true); // switch to login after signup
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error. Please try again later.");
+  }
+};
+
+
+  // ---------- Forgot Password ----------
+  const handleForgotPassword = (e) => {
     e.preventDefault();
-
-    if (!formData.email || !formData.password || (!isLogin && !formData.name)) {
-      alert("Please fill all fields!");
+    if (!resetEmail) {
+      alert("Enter your email to reset password!");
       return;
     }
-
-    if (!isLogin && formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    const userAvatar = (formData.name || formData.email)[0].toUpperCase();
-    const userData = {
-      loggedIn: true,
-      avatarLetter: userAvatar,
-      email: formData.email,
-    };
-
-    localStorage.setItem("learnsphereUser", JSON.stringify(userData));
-    setLoggedIn(true);
-    setAvatarLetter(userAvatar);
-    setShowSignup(false);
-    setAiMessage(`Welcome, ${formData.name || formData.email}! 🤖`);
-    setTimeout(() => setAiMessage(""), 3000);
+    setAiMessage(`🔒 Password reset link sent to ${resetEmail}`);
+    setShowForgot(false);
+    setResetEmail("");
+    setTimeout(() => setAiMessage(""), 4000);
   };
 
   // ---------- Helper to protect routes ----------
@@ -210,12 +257,12 @@ const Navbar = ({
             <div className="auth-left">
               {isLogin ? (
                 <>
-                  <h1>Have an account?</h1>
+                  <h1>Welcome Back</h1>
                   <p>Login to continue your journey with LearnSphere AI!</p>
                 </>
               ) : (
                 <>
-                  <h1>Create your Account</h1>
+                  <h1>Create Account</h1>
                   <p>Join our platform to start learning and exploring!</p>
                 </>
               )}
@@ -262,10 +309,24 @@ const Navbar = ({
                   {isLogin ? "Login →" : "Sign Up →"}
                 </button>
               </form>
+
+              {isLogin && (
+                <p
+                  className="forgot-link"
+                  onClick={() => {
+                    setShowForgot(true);
+                    setShowSignup(false);
+                  }}
+                >
+                  Forgot Password?
+                </p>
+              )}
+
               <p className="toggle-text">
                 {isLogin ? (
                   <>
-                    No account? <span onClick={() => setIsLogin(false)}>Sign Up</span>
+                    No account?{" "}
+                    <span onClick={() => setIsLogin(false)}>Sign Up</span>
                   </>
                 ) : (
                   <>
@@ -275,6 +336,28 @@ const Navbar = ({
                 )}
               </p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Forgot Password Modal */}
+      {showForgot && (
+        <div className="forgot-overlay">
+          <div className="forgot-box">
+            <h2>Reset Password</h2>
+            <p>Enter your registered email address to receive a reset link.</p>
+            <form onSubmit={handleForgotPassword}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+              />
+              <button type="submit">Send Reset Link</button>
+            </form>
+            <button className="back-btn" onClick={() => setShowForgot(false)}>
+              ← Back to Login
+            </button>
           </div>
         </div>
       )}
