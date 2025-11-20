@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 export default function FrontendHomePage() {
@@ -16,6 +16,24 @@ export default function FrontendHomePage() {
 
   const [index, setIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
+  const navigate = useNavigate();
+
+  // 🔊 Background audio only on this page
+  useEffect(() => {
+    const audio = new Audio("/1.mp3");
+    audio.loop = true;
+    audio.muted = true;     // allow autoplay
+    audio.play();
+
+    setTimeout(() => {
+      audio.muted = false;  // unmute after autoplay begins
+    }, 300);
+
+    return () => {
+      audio.pause();        // stop audio when leaving page
+      audio.currentTime = 0;
+    };
+  }, []);
 
   // Rotate words every 3 seconds
   useEffect(() => {
@@ -27,7 +45,7 @@ export default function FrontendHomePage() {
 
   // Typing animation
   useEffect(() => {
-    setDisplayedText(""); // reset
+    setDisplayedText("");
     const word = words[index];
     let i = 0;
     const typing = setInterval(() => {
@@ -48,6 +66,11 @@ export default function FrontendHomePage() {
 
       {/* Overlay */}
       <div className="overlay"></div>
+
+      {/* 🔙 Back Button */}
+      <button className="back-button" onClick={() => navigate("/")}>
+        ← Back
+      </button>
 
       {/* Center Gamified Card */}
       <Link to="/frontend-levels" className="center-card">

@@ -31,7 +31,7 @@
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 4rem;
+  font-size: 3rem;
   color: #fff;
   text-shadow: 2px 2px 8px #000;
   z-index: 3;
@@ -40,14 +40,14 @@
 
 .cards-container {
   display: flex;
-  gap: 3rem;
+  gap: 4rem;
   position: relative;
   z-index: 3;
 }
 
 .adventure-card {
-  width: 300px;
-  height: 200px;
+  width: 400px;
+  height: 300px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -57,54 +57,90 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(10px);
   text-decoration: none;
   position: relative;
   overflow: hidden;
 }
 
+/* 🔮 Glowing border */
 .adventure-card::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 20px;
   padding: 2px;
-  background: linear-gradient(45deg, #00eaff, #ff00ea);
+  background: linear-gradient(45deg, #f0feff, #f6f1f6);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
+  z-index: 1;
+}
+
+/* 🌈 Background image container inside each card */
+.adventure-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4; /* Soft overlay look */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 0;
+}
+
+/* 🌐 Frontend Card */
+.frontend-card::after {
+  background-image: url("/images/f.png"); /* Add your frontend image */
 }
 
 .frontend-card {
-  background: rgba(0, 234, 255, 0.1);
-  box-shadow: 0 0 25px rgba(0, 234, 255, 0.5);
+  background: rgba(37, 44, 45, 0.1);
+  box-shadow: 0 0 25px rgba(7, 9, 9, 0.5);
 }
 
 .frontend-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(0, 234, 255, 0.8);
+  box-shadow: 0 20px 50px rgba(68, 67, 67, 0.8);
+}
+
+.frontend-card:hover::after {
+  transform: scale(1.1);
+  opacity: 0.6;
+}
+
+/* ⚙️ Backend Card */
+.backend-card::after {
+  background-image: url("/images/b.png"); /* Add your backend image */
 }
 
 .backend-card {
   background: rgba(255, 0, 234, 0.1);
-  box-shadow: 0 0 25px rgba(255, 0, 234, 0.5);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
 .backend-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(255, 0, 234, 0.8);
+  box-shadow: 0 20px 50px rgba(48, 47, 48, 0.8);
 }
 
+.backend-card:hover::after {
+  transform: scale(1.1);
+  opacity: 0.6;
+}
+
+/* Text Styles */
 .adventure-card h2 {
   font-size: 2rem;
   margin-bottom: 10px;
   text-shadow: 1px 1px 5px #000;
+  z-index: 2;
 }
 
 .adventure-card p {
   font-size: 1rem;
   margin: 0;
   opacity: 0.9;
+  z-index: 2;
 }
 
 .arrow {
@@ -114,6 +150,7 @@
   font-size: 1.5rem;
   opacity: 0.7;
   transition: opacity 0.3s ease;
+  z-index: 2;
 }
 
 .adventure-card:hover .arrow {

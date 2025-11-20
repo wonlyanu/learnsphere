@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --neon-a: #00f5ff;
+  --neon-b: #ff33cc;
+  --glass-bg: rgba(7, 7, 7, 0.04);
+  --glass-border: rgba(17, 17, 17, 0.12);
+  --line-gradient: linear-gradient(90deg, var(--neon-a), var(--neon-b));
+}
+
+/* Root area that sits under navbar so navbar remains visible */
+.onboarding-root {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Background video / image */
+.onb-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.26) contrast(1.2);
+  pointer-events: none;
+}
+
+.onb-back {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* Main centered glass card */
+.onb-card {
+  pointer-events: auto;
+  width: min(1080px, 92%);
+  max-width: 1000px;
+  padding: 50px 60px 60px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(216, 5, 5, 0.03), rgba(255,255,255,0.02));
+  backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 18px 60px rgba(2,6,20,0.7);
+  position: relative;
+  text-align: center;
+  /* Changed text color for the card content to white */
+  color: #fff;
+  overflow: visible;
+}
+
+/* Neon glowing border effect (kept as is for the card, not text) */
+.onb-card::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(90deg, rgba(0,245,255,0.08), rgba(255,51,204,0.08));
+  z-index: -1;
+  filter: blur(25px);
+  opacity: 0.9;
+}
+
+/* Titles */
+.onb-title {
+  font-family: 'Poppins', sans-serif;
+  margin: 10px 0 18px;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2.6vw, 2.1rem);
+  /* Changed color explicitly to white, removing potential inheritance issues */
+  color: #fff;
+}
+
+.onb-sub {
+  margin-bottom: 22px;
+  opacity: 0.95;
+  font-weight: 600;
+  color: #fff; /* Ensure subtitle is also white */
+}
+
+/* --- MODIFIED: Removed Neon text style --- */
+/* The 'neon' class is no longer applied to text in JSX, so this rule becomes inactive for text glow */
+/* .neon {
+  text-shadow:
+    0 0 10px rgba(0,245,255,0.9),
+    0 0 20px rgba(255,51,204,0.6);
+} */
+
+
+/* Choices grid */
+.choices-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 28px auto 6px;
+  align-items: center;
+  width: min(100%, 480px);
+}
+
+/* Choice card (label-only design) */
+.choice-card {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(190, 89, 89, 0.03), rgba(255,255,255,0.02));
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 18px 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  user-select: none;
+  overflow: hidden;
+  text-align: left;
+}
+
+.choice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(255, 254, 254, 0.6);
+}
+
+/* Text label */
+.choice-label {
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1.2vw, 1.15rem);
+  flex-grow: 1;
+  text-align: left;
+  z-index: 2;
+  margin-top: 0;
+  /* Changed color to white for the labels */
+  color: #fff;
+}
+
+/* Small circle selection indicator (replaces checkmark box) */
+.choice-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  flex-shrink: 0;
+  transition: all 220ms ease;
+  margin-left: 15px;
+}
+
+.choice-dot.show {
+  /* Kept the gradient for the dot, as it's a good selection indicator. 
+     If you want it plain white, change to: `background: #fff; border: 2px solid #fff; box-shadow: none;` */
+  background: var(--line-gradient);
+  border: 2px solid var(--neon-a);
+  box-shadow: 0 0 12px rgba(0,245,255,0.5);
+  transform: scale(1.1);
+}
+
+/* Selected style */
+.choice-card.selected {
+  background: linear-gradient(90deg, rgba(0,245,255,0.15), rgba(255,51,204,0.12));
+  border: 1px solid rgba(0,245,255,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 30px rgba(0,245,255,0.1);
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* Continue button style */
+.onb-continue {
+  margin-top: 24px;
+  background: linear-gradient(90deg, #00bfff, #c5c9cd);
+  border: none;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms;
+  box-shadow: 0 12px 34px rgba(51,204,255,0.08);
+}
+
+.onb-continue:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- MODIFIED: Removed Animated top line --- */
+.onb-color-line-top {
+  /* Comment out or remove these properties to hide the line completely */
+  /* height: 6px;
+  width: 80%;
+  margin: 0 auto 22px;
+  border-radius: 4px;
+  background: var(--line-gradient);
+  box-shadow: 0 0 14px rgba(255,255,255,0.4); */
+  display: none; /* Add this to ensure it's hidden */
+}
+
+
+/* Responsive tweaks */
+@media (max-width:880px) {
+  .onb-card {
+    padding: 35px;
+    width: 85%;
+  }
+  .choices-grid {
+    gap: 12px;
+  }
+}

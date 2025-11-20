@@ -1,69 +1,65 @@
-// WebDevGamesHub.jsx
+// WebGames.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import './Webgames.css';
+import './WebGames.css';
 
 // Import GIFs for game interactions
-const htmlAnimation = "https://media.giphy.com/media/3o7TKsQ8UQ4l4LhGz6/giphy.gif";
-const cssAnimation = "https://media.giphy.com/media/l0HlNaQ6YlYp8/giphy.gif";
-const jsAnimation = "https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif";
-const frameworkAnimation = "https://media.giphy.com/media/Lr4CaCvfRuGDC/giphy.gif";
-const responsiveAnimation = "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif";
 
-const WebDevGamesHub = ({ goBack }) => {
+const layoutAnimation = "https://media.giphy.com/media/L8K62iLin5mBi/giphy.gif";
+const jsAnimation = "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif";
+const responsiveAnimation = "https://media.giphy.com/media/f6hnhH1h4K1DvwuQKU/giphy.gif";
+const deployAnimation = "https://media.giphy.com/media/TN59vJVGu1izS/giphy.gif";
+
+const WebGamesHub = ({ goBack }) => {
   const videoRef = useRef(null);
   const [activeGame, setActiveGame] = useState(null);
   const [gameData, setGameData] = useState({
     score: 0,
     level: 1,
     achievements: [],
-    unlockedGames: ['html']
+    unlockedGames: ['markup']
   });
   const [showAchievements, setShowAchievements] = useState(false);
 
+    
   const games = [
     {
-      id: 'html',
-      title: 'HTML Structure Builder',
-      description: 'Create semantic markup with drag & drop',
-      icon: '🔍',
-      gif: htmlAnimation,
-      component: <HTMLBuilderGame onComplete={(score, achievement) => updateScore(score, achievement)} />
+      id: 'markup',
+      title: 'Markup Master',
+      description: 'Build HTML structures with semantic tags',
+      gif: layoutAnimation ,
+      component: <MarkupMasterGame onComplete={(score, achievement) => updateScore(score, achievement)} />
     },
     {
-      id: 'css',
-      title: 'CSS Designer Studio',
-      description: 'Style beautiful layouts with Flexbox/Grid',
-      icon: '🎨',
-      gif: cssAnimation,
-      locked: !gameData.unlockedGames.includes('css'),
-      component: <CSSDesignerGame onComplete={(score, achievement) => updateScore(score, achievement)} />
+      id: 'styling',
+      title: 'Style Studio',
+      description: 'Create stunning layouts with CSS Flexbox and Grid',
+      gif: layoutAnimation,
+      locked: !gameData.unlockedGames.includes('styling'),
+      component: <StyleStudioGame onComplete={(score, achievement) => updateScore(score, achievement)} />
     },
     {
-      id: 'js',
-      title: 'JavaScript Logic Quest',
-      description: 'Solve programming challenges',
-      icon: '🔧',
+      id: 'scripting',
+      title: 'JavaScript Jungle',
+      description: 'Solve coding challenges with JS logic',
       gif: jsAnimation,
-      locked: !gameData.unlockedGames.includes('js'),
-      component: <JSLogicGame onComplete={(score, achievement) => updateScore(score, achievement)} />
+      locked: !gameData.unlockedGames.includes('scripting'),
+      component: <ScriptingChallengeGame onComplete={(score, achievement) => updateScore(score, achievement)} />
     },
     {
       id: 'responsive',
-      title: 'Responsive Design',
-      description: 'Build adaptive layouts for all devices',
-      icon: '📱',
+      title: 'Responsive Racer',
+      description: 'Design adaptive layouts for all devices',
       gif: responsiveAnimation,
       locked: !gameData.unlockedGames.includes('responsive'),
-      component: <ResponsiveDesignGame onComplete={(score, achievement) => updateScore(score, achievement)} />
+      component: <ResponsiveDesignerGame onComplete={(score, achievement) => updateScore(score, achievement)} />
     },
     {
-      id: 'framework',
-      title: 'Framework Mastery',
-      description: 'Master React/Vue/Angular components',
-      icon: '⚛️',
-      gif: frameworkAnimation,
-      locked: !gameData.unlockedGames.includes('framework'),
-      component: <FrameworkMasteryGame onComplete={(score, achievement) => updateScore(score, achievement)} />
+      id: 'deployment',
+      title: 'Deployment Dash',
+      description: 'Deploy websites to production servers',
+      gif: deployAnimation,
+      locked: !gameData.unlockedGames.includes('deployment'),
+      component: <DeploymentDashGame onComplete={(score, achievement) => updateScore(score, achievement)} />
     }
   ];
 
@@ -123,40 +119,50 @@ const WebDevGamesHub = ({ goBack }) => {
   };
 
   return (
-    <div className="webdev-games-hub">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        className="bg-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src="/videos/respage.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      {/* Background Smoke Effect */}
-      <div className="background-smoke"></div>
+    <div className="web-games-hub" style={{ marginTop: '240px' }}>
+      {/* Background GIF */}
+      <img
+        className="background-video"
+        src="/videos/gambg.gif"
+        alt="Web Development Background Animation"
+      />
 
       <header className="hub-header">
         <button className="back-btn" onClick={goBack}>← Back to Home</button>
-        <h1><center> WEB DEVELOPMENT GAMES</center> </h1>
-        <div className="player-stats">
-          <div className="stat-badge">
-            <span className="label">Level:</span>
-            <span className="value">{gameData.level}</span>
-          </div>
-          <div className="stat-badge">
-            <span className="label">Score:</span>
-            <span className="value">{gameData.score}</span>
-          </div>
-          <button className="achievements-btn" onClick={() => setShowAchievements(!showAchievements)}>
-            🏆 Achievements ({gameData.achievements.length})
-          </button>
-        </div>
+
+        <h1
+          style={{
+            color: "#f6f3f6ff",
+            fontSize: "4rem",
+            fontWeight: "900",
+            textAlign: "center",
+            marginTop: "20px",
+            letterSpacing: "4px",
+            fontFamily: "'Orbitron', sans-serif",
+            textShadow: `
+             
+              2px 2px 4px rgba(0, 0, 0, 0.8)
+            `
+          }}
+        >
+          WEB DEV GAMES
+        </h1>
       </header>
+
+      <div className="player-stats-container">
+        <div className="stat-badge">
+          <span className="label">Level:</span>
+          <span className="value">{gameData.level}</span>
+        </div>
+        <div className="stat-badge">
+          <span className="label">Score:</span>
+          <span className="value">{gameData.score}</span>
+        </div>
+        <div className="stat-badge achievements-badge" onClick={() => setShowAchievements(!showAchievements)}>
+          <span className="label">Achievements:</span>
+          <span className="value">{gameData.achievements.length}</span>
+        </div>
+      </div>
 
       {showAchievements && (
         <div className="achievements-overlay">
@@ -208,7 +214,6 @@ const WebDevGamesHub = ({ goBack }) => {
                   <div className="card-icon">{game.icon}</div>
                   <h3>{game.title}</h3>
                   <p>{game.description}</p>
-                  <div className="play-button">PLAY NOW</div>
                 </div>
               )}
             </div>
@@ -224,20 +229,19 @@ const WebDevGamesHub = ({ goBack }) => {
           ></div>
         </div>
         <p>Next Level: {(gameData.level) * 200} points</p>
-        <p>© 2025 Web Development Training Center | All games for educational purposes</p>
       </footer>
     </div>
   );
 };
 
-// HTML Structure Builder Game Component
-const HTMLBuilderGame = ({ onComplete }) => {
+// Markup Master Game Component
+const MarkupMasterGame = ({ onComplete }) => {
   const [stage, setStage] = useState(1);
   const [completedStages, setCompletedStages] = useState([]);
   const [answers, setAnswers] = useState({
-    semanticTag: '',
     formStructure: '',
-    accessibilityAttr: ''
+    articleTags: '',
+    navigationHTML: ''
   });
   const [result, setResult] = useState('');
   const [showHint, setShowHint] = useState(null);
@@ -247,57 +251,60 @@ const HTMLBuilderGame = ({ onComplete }) => {
     setAnswers(prev => ({ ...prev, [field]: value }));
   };
 
-  const checkSemanticTag = () => {
-    const correctAnswers = ['main', 'nav', 'aside', 'header', 'footer', 'section', 'article'];
-    if (correctAnswers.includes(answers.semanticTag.toLowerCase())) {
-      setCompletedStages([...completedStages, 'semantic']);
+  const checkFormStructure = () => {
+    if (answers.formStructure.toLowerCase().includes('<form') && 
+        answers.formStructure.toLowerCase().includes('</form>') &&
+        answers.formStructure.toLowerCase().includes('input')) {
+      setCompletedStages([...completedStages, 'form']);
       setStage(2);
       setResult('✅ Correct! Proceed to stage 2...');
       setPointsAwarded(prev => prev + 50);
     } else {
-      setResult('❌ Incorrect! Try again.');
+      setResult('❌ Incorrect! Try again. Hint: Use semantic HTML tags');
     }
   };
 
-  const checkFormStructure = () => {
-    if (answers.formStructure.toLowerCase().includes('<form>') && 
-        answers.formStructure.toLowerCase().includes('</form>') &&
-        answers.formStructure.toLowerCase().includes('submit')) {
-      setCompletedStages([...completedStages, 'form']);
+  const checkArticleTags = () => {
+    if (answers.articleTags.toLowerCase().includes('<article') && 
+        answers.articleTags.toLowerCase().includes('</article>') &&
+        answers.articleTags.toLowerCase().includes('<header') && 
+        answers.articleTags.toLowerCase().includes('<footer')) {
+      setCompletedStages([...completedStages, 'article']);
       setStage(3);
       setResult('✅ Well done! Proceed to final stage...');
       setPointsAwarded(prev => prev + 50);
     } else {
-      setResult('❌ Not quite! Try again.');
+      setResult('❌ Not quite! Ensure you use proper semantic structure');
     }
   };
 
-  const checkAccessibility = () => {
-    if (answers.accessibilityAttr.toLowerCase().includes('alt="') ||
-        answers.accessibilityAttr.toLowerCase().includes('aria-label') ||
-        answers.accessibilityAttr.toLowerCase().includes('role=')) {
+  const checkNavigationHTML = () => {
+    if (answers.navigationHTML.toLowerCase().includes('<nav') && 
+        answers.navigationHTML.toLowerCase().includes('</nav>') &&
+        answers.navigationHTML.toLowerCase().includes('<ul') && 
+        answers.navigationHTML.toLowerCase().includes('<li>')) {
       const finalScore = pointsAwarded + 100;
-      onComplete(finalScore, "HTML Architect");
-      setCompletedStages([...completedStages, 'accessibility']);
-      setResult(`✅ Perfect markup! +${finalScore} points awarded!`);
+      onComplete(finalScore, "Markup Master!");
+      setCompletedStages([...completedStages, 'navigation']);
+      setResult(`✅ Markup mastery achieved! +${finalScore} points awarded!`);
       setTimeout(() => setPointsAwarded(0), 3000);
     } else {
-      setResult('❌ Missing accessibility features!');
+      setResult('❌ Missing semantic elements. Try again!');
     }
   };
 
   return (
-    <div className="html-builder-game">
-      <h3>🔍 HTML STRUCTURE BUILDER</h3>
-      <p className="instructions">Create accessible and semantic HTML structures!</p>
+    <div className="markup-master-game">
+      <h3>🎯 MARKUP MASTER</h3>
+      <p className="instructions">Build proper HTML structures with semantic markup!</p>
       
       <div className="progress-tracker">
         {[1, 2, 3].map(num => (
           <div 
             key={num} 
             className={`step ${stage === num ? 'active' : ''} ${completedStages.includes(
-              num === 1 ? 'semantic' : 
-              num === 2 ? 'form' : 'accessibility'
+              num === 1 ? 'form' : 
+              num === 2 ? 'article' : 'navigation'
             ) ? 'completed' : ''}`}
           >
             Stage {num}
@@ -307,48 +314,15 @@ const HTMLBuilderGame = ({ onComplete }) => {
       
       {stage >= 1 && (
         <div className="puzzle-stage">
-          <h4>🏗️ Stage 1: Semantic Markup</h4>
-          <p>Which element represents the main content area?</p>
-          <div className="puzzle-input">
-            <input 
-              type="text" 
-              value={answers.semanticTag}
-              onChange={(e) => handleAnswerChange('semanticTag', e.target.value)}
-              placeholder="Enter HTML tag name"
-            />
-            <button onClick={checkSemanticTag}>Submit</button>
-          </div>
-          <div className="hint-section">
-            <button className="hint-toggle" onClick={() => setShowHint(showHint === 'semantic' ? null : 'semantic')}>
-              {showHint === 'semantic' ? 'Close Hint' : 'Toggle Hint'}
-            </button>
-            {showHint === 'semantic' && (
-              <div className="hint-box">
-                <h5>Detailed Hint:</h5>
-                <ul>
-                  <li>It contains the primary content</li>
-                  <li>Not navigation or sidebar</li>
-                  <li>Introduced in HTML5</li>
-                  <li>Single per page</li>
-                </ul>
-              </div>
-            )}
-          </div>
-          {result && <p className={`result ${result.includes('✅') ? 'success' : 'error'}`}>{result}</p>}
-          {completedStages.includes('semantic') && <p className="success">✓ Stage 1 Completed | 50 pts</p>}
-        </div>
-      )}
-      
-      {stage >= 2 && (
-        <div className="puzzle-stage">
-          <h4>📄 Stage 2: Form Structure</h4>
-          <p>Create a basic form with username and submit button</p>
+          <h4>📋 Stage 1: Form Construction</h4>
+          <p>Create a contact form with name, email, and message fields</p>
           <div className="puzzle-input">
             <textarea 
               value={answers.formStructure}
               onChange={(e) => handleAnswerChange('formStructure', e.target.value)}
-              placeholder="Enter HTML form structure"
+              placeholder="Write HTML for a contact form"
               rows="4"
+              cols="50"
             />
             <button onClick={checkFormStructure}>Submit</button>
           </div>
@@ -360,63 +334,99 @@ const HTMLBuilderGame = ({ onComplete }) => {
               <div className="hint-box">
                 <h5>Detailed Hint:</h5>
                 <ul>
-                  <li>Open with &lt;form&gt; and close with &lt;/form&gt;</li>
-                  <li>Include &lt;input type="text"&gt; for username</li>
-                  <li>Add &lt;button type="submit"&gt; for submission</li>
-                  <li>Wrap inputs in labels or use "for" attribute</li>
+                  <li>Use the &lt;form&gt; element to wrap everything</li>
+                  <li>Include input elements with appropriate types</li>
+                  <li>Add labels for accessibility</li>
+                  <li>Don't forget the submit button</li>
                 </ul>
               </div>
             )}
           </div>
           {result && <p className={`result ${result.includes('✅') ? 'success' : 'error'}`}>{result}</p>}
-          {completedStages.includes('form') && <p className="success">✓ Stage 2 Completed | 50 pts</p>}
+          {completedStages.includes('form') && <p className="success">✓ Stage 1 Completed | 50 pts</p>}
+        </div>
+      )}
+      
+      {stage >= 2 && (
+        <div className="puzzle-stage">
+          <h4>📄 Stage 2: Article Structure</h4>
+          <p>Build a blog post with header, content, and footer</p>
+          <div className="puzzle-input">
+            <textarea 
+              value={answers.articleTags}
+              onChange={(e) => handleAnswerChange('articleTags', e.target.value)}
+              placeholder="Write HTML for a blog article"
+              rows="4"
+              cols="50"
+            />
+            <button onClick={checkArticleTags}>Submit</button>
+          </div>
+          <div className="hint-section">
+            <button className="hint-toggle" onClick={() => setShowHint(showHint === 'article' ? null : 'article')}>
+              {showHint === 'article' ? 'Close Hint' : 'Toggle Hint'}
+            </button>
+            {showHint === 'article' && (
+              <div className="hint-box">
+                <h5>Detailed Hint:</h5>
+                <ul>
+                  <li>Wrap content in &lt;article&gt; tag</li>
+                  <li>Use &lt;header&gt; for titles and metadata</li>
+                  <li>&lt;section&gt; elements for content sections</li>
+                  <li>&lt;footer&gt; for author info and dates</li>
+                </ul>
+              </div>
+            )}
+          </div>
+          {result && <p className={`result ${result.includes('✅') ? 'success' : 'error'}`}>{result}</p>}
+          {completedStages.includes('article') && <p className="success">✓ Stage 2 Completed | 50 pts</p>}
         </div>
       )}
       
       {stage >= 3 && (
         <div className="puzzle-stage">
-          <h4>♿ Stage 3: Accessibility Features</h4>
-          <p>Add accessibility to this image tag: &lt;img src="logo.png"&gt;</p>
+          <h4>🧭 Stage 3: Navigation Menu</h4>
+          <p>Create a semantic navigation menu for a website</p>
           <div className="puzzle-input">
-            <input 
-              type="text" 
-              value={answers.accessibilityAttr}
-              onChange={(e) => handleAnswerChange('accessibilityAttr', e.target.value)}
-              placeholder="Add accessibility attribute"
+            <textarea 
+              value={answers.navigationHTML}
+              onChange={(e) => handleAnswerChange('navigationHTML', e.target.value)}
+              placeholder="Write HTML for site navigation"
+              rows="4"
+              cols="50"
             />
-            <button onClick={checkAccessibility}>Submit</button>
+            <button onClick={checkNavigationHTML}>Submit</button>
           </div>
           <div className="hint-section">
-            <button className="hint-toggle" onClick={() => setShowHint(showHint === 'accessibility' ? null : 'accessibility')}>
-              {showHint === 'accessibility' ? 'Close Hint' : 'Toggle Hint'}
+            <button className="hint-toggle" onClick={() => setShowHint(showHint === 'navigation' ? null : 'navigation')}>
+              {showHint === 'navigation' ? 'Close Hint' : 'Toggle Hint'}
             </button>
-            {showHint === 'accessibility' && (
+            {showHint === 'navigation' && (
               <div className="hint-box">
                 <h5>Detailed Hint:</h5>
                 <ul>
-                  <li>Descriptive "alt" attribute describes the image</li>
-                  <li>"aria-label" for screen readers</li>
-                  <li>"role" to define purpose (presentation, button)</li>
-                  <li>Example: alt="Company Logo"</li>
+                  <li>Use &lt;nav&gt; element to define navigation</li>
+                  <li>List items should be in &lt;ul&gt; and &lt;li&gt;</li>
+                  <li>Clean hierarchy is important for accessibility</li>
+                  <li>Semantic tags help screen readers</li>
                 </ul>
               </div>
             )}
           </div>
           {result && <p className={`result ${result.includes('✅') ? 'success' : 'error'}`}>{result}</p>}
-          {completedStages.includes('accessibility') && <p className="success">✓ Stage 3 Completed</p>}
+          {completedStages.includes('navigation') && <p className="success">✓ Stage 3 Completed</p>}
         </div>
       )}
     </div>
   );
 };
 
-// CSS Designer Studio Game Component
-const CSSDesignerGame = ({ onComplete }) => {
+// Style Studio Game Component
+const StyleStudioGame = ({ onComplete }) => {
   const [position, setPosition] = useState({ x: 50, y: 50 });
-  const [designElements, setDesignElements] = useState([
-    { id: 1, x: 30, y: 40, type: 'flex', applied: false },
-    { id: 2, x: 70, y: 60, type: 'grid', applied: false },
-    { id: 3, x: 20, y: 80, type: 'animation', applied: false }
+  const [obstacles, setObstacles] = useState([
+    { id: 1, x: 30, y: 40, type: 'grid', passed: false },
+    { id: 2, x: 70, y: 60, type: 'flex', passed: false },
+    { id: 3, x: 20, y: 80, type: 'position', passed: false }
   ]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -431,11 +441,11 @@ const CSSDesignerGame = ({ onComplete }) => {
       return () => clearTimeout(timer);
     } else if (timeLeft === 0 && !gameOver) {
       setGameOver(true);
-      onComplete(score, "Layout Master");
+      onComplete(score, "Layout Artist");
     }
   }, [timeLeft, gameOver, score, onComplete]);
 
-  const applyStyling = (direction) => {
+  const moveDesigner = (direction) => {
     if (gameOver) return;
     
     setPosition(prev => {
@@ -450,25 +460,36 @@ const CSSDesignerGame = ({ onComplete }) => {
         default: break;
       }
       
-      // Check proximity to styling elements
-      const closeElements = designElements.filter(element => 
-        Math.abs(newX - element.x) < 8 && Math.abs(newY - element.y) < 8
+      // Check collision
+      const hit = obstacles.find(obs => 
+        Math.abs(newX - obs.x) < 8 && Math.abs(newY - obs.y) < 8
       );
       
-      if (closeElements.length > 0) {
-        const points = closeElements.length * 50;
+      if (hit) {
+        setGameOver(true);
+        onComplete(score, "Design Collision");
+        return prev;
+      }
+      
+      // Check if passed an obstacle
+      const passed = obstacles.filter(obs => 
+        !obs.passed && Math.abs(newX - obs.x) < 8 && Math.abs(newY - obs.y) < 8
+      );
+      
+      if (passed.length > 0) {
+        const points = passed.length * 50;
         setScore(prev => prev + points);
-        setDesignElements(prev => 
-          prev.map(element => 
-            closeElements.find(c => c.id === element.id) 
-              ? {...element, applied: true} 
-              : element
+        setObstacles(prev => 
+          prev.map(obs => 
+            passed.find(p => p.id === obs.id) 
+              ? {...obs, passed: true} 
+              : obs
           )
         );
         
         // Achievement tracking
-        if (designElements.filter(d => d.applied).length + closeElements.length === designElements.length) {
-          setAchievements(prev => [...prev, "CSS Artist"]);
+        if (obstacles.filter(o => o.passed).length + passed.length === obstacles.length) {
+          setAchievements(prev => [...prev, "Perfect Layout"]);
         }
       }
       
@@ -481,7 +502,7 @@ const CSSDesignerGame = ({ onComplete }) => {
     const handleKeyDown = (e) => {
       if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
         e.preventDefault();
-        applyStyling({
+        moveDesigner({
           'ArrowUp': 'up',
           'ArrowDown': 'down',
           'ArrowLeft': 'left',
@@ -495,7 +516,7 @@ const CSSDesignerGame = ({ onComplete }) => {
   }, []);
 
   return (
-    <div className="css-designer-game">
+    <div className="style-studio-game">
       <div className="game-info">
         <div>⏱️ Time: {timeLeft}s</div>
         <div>💰 Score: {score}</div>
@@ -505,113 +526,192 @@ const CSSDesignerGame = ({ onComplete }) => {
       </div>
       
       <div className="game-area">
-        {/* Designer Element */}
+        {/* Designer */}
         <div 
-          className="designer-element" 
+          className="designer" 
           style={{ left: `${position.x}%`, top: `${position.y}%` }}
         >
-          💡
+          💻
         </div>
         
-        {/* Styling Elements */}
-        {designElements.map(element => (
+        {/* Obstacles */}
+        {obstacles.map(obstacle => (
           <div 
-            key={element.id}
-            className={`design-element ${element.type} ${element.applied ? 'applied' : ''}`}
-            style={{ left: `${element.x}%`, top: `${element.y}%` }}
+            key={obstacle.id}
+            className={`obstacle ${obstacle.type} ${obstacle.passed ? 'passed' : ''}`}
+            style={{ left: `${obstacle.x}%`, top: `${obstacle.y}%` }}
           >
-            {element.type === 'flex' && '📦'}
-            {element.type === 'grid' && '🏁'}
-            {element.type === 'animation' && '🎭'}
+            {obstacle.type === 'grid' && '🔲'}
+            {obstacle.type === 'flex' && '↔️'}
+            {obstacle.type === 'position' && '📍'}
           </div>
         ))}
       </div>
       
       <div className="controls">
-        <p>Use arrow keys to collect styling techniques</p>
+        <p>Use arrow keys to position elements correctly</p>
         <div className="keyboard">
-          <button onClick={() => applyStyling('up')} className="control-btn">↑</button>
+          <button onClick={() => moveDesigner('up')} className="control-btn">↑</button>
           <div className="row">
-            <button onClick={() => applyStyling('left')} className="control-btn">←</button>
-            <button onClick={() => applyStyling('down')} className="control-btn">↓</button>
-            <button onClick={() => applyStyling('right')} className="control-btn">→</button>
+            <button onClick={() => moveDesigner('left')} className="control-btn">←</button>
+            <button onClick={() => moveDesigner('down')} className="control-btn">↓</button>
+            <button onClick={() => moveDesigner('right')} className="control-btn">→</button>
           </div>
         </div>
       </div>
       
       {showHint && (
         <div className="hint-box detailed">
-          <h4>🎨 CSS Design Tips:</h4>
+          <h4>🎨 Styling Tips:</h4>
           <ul>
-            <li><strong>Navigation:</strong> Use arrow keys or buttons to move</li>
-            <li><strong>Collection:</strong> Gather styling elements (Flexbox 📦, Grid 🏁, Animation 🎭)</li>
-            <li><strong>Scoring:</strong> Collect each element for 50 points</li>
-            <li><strong>Time:</strong> Complete collection in 60 seconds</li>
-            <li><strong>Achievement:</strong> Collect ALL elements for "CSS Artist"</li>
+            <li><strong>Navigation:</strong> Use arrow keys or buttons for movement</li>
+            <li><strong>Layout Models:</strong> Avoid grid (🔲), flexbox (↔️), and positioning (📍) traps</li>
+            <li><strong>Scoring:</strong> Pass each styling challenge for 50 points</li>
+            <li><strong>Time:</strong> Complete layout tasks within 60 seconds</li>
+            <li><strong>Achievement:</strong> Perfect all challenges for "Perfect Layout"</li>
           </ul>
         </div>
       )}
       
       {gameOver && (
         <div className="game-over">
-          <h3>Design Challenge Ended!</h3>
+          <h3>Design Session Over!</h3>
           <p>Final Score: <span className="score-value">{score}</span> points</p>
           {achievements.length > 0 && (
             <p className="achievement">🎖️ Achievement Unlocked: {achievements[0]}</p>
           )}
-          <p><em>Press "Back to Hub" to try again</em></p>
+          <p><em>Press "Back to Hub" to redesign</em></p>
         </div>
       )}
     </div>
   );
 };
 
-// JavaScript Logic Quest Game Component
-const JSLogicGame = ({ onComplete }) => {
+// Scripting Challenge Game Component
+const ScriptingChallengeGame = ({ onComplete }) => {
   const [challenges, setChallenges] = useState([]);
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
   const [gameActive, setGameActive] = useState(true);
-  const [selectedConcepts, setSelectedConcepts] = useState([]);
+  const [selectedFunctions, setSelectedFunctions] = useState([]);
   const [showHint, setShowHint] = useState(false);
-  const [challengeLevel, setChallengeLevel] = useState(1);
+  const [complexity, setComplexity] = useState(1);
   const [combo, setCombo] = useState(0);
   const [bestCombo, setBestCombo] = useState(0);
 
-  const jsConcepts = [
-    { id: 1, type: 'variables', description: 'Declaring with let/const/var' },
-    { id: 2, type: 'functions', description: 'Reusable code blocks' },
-    { id: 3, type: 'arrays', description: 'Ordered data collections' },
-    { id: 4, type: 'objects', description: 'Key-value data structures' },
-    { id: 5, type: 'loops', description: 'Iteration constructs' },
-    { id: 6, type: 'promises', description: 'Asynchronous operations' }
+  const scriptingFunctions = [
+    { 
+      id: 1, 
+      name: 'arrayMethods', 
+      usage: 'map/filter/reduce', 
+      description: 'Transform arrays efficiently', 
+      category: 'data' 
+    },
+    { 
+      id: 2, 
+      name: 'asyncHandling', 
+      usage: 'Promises/async-await', 
+      description: 'Handle asynchronous operations', 
+      category: 'async' 
+    },
+    { 
+      id: 3, 
+      name: 'domManipulation', 
+      usage: 'querySelector/update', 
+      description: 'Interact with HTML elements', 
+      category: 'ui' 
+    },
+    { 
+      id: 4, 
+      name: 'eventListeners', 
+      usage: 'addEventListener', 
+      description: 'Respond to user actions', 
+      category: 'events' 
+    },
+    { 
+      id: 5, 
+      name: 'apiIntegration', 
+      usage: 'fetch/axios', 
+      description: 'Connect to web services', 
+      category: 'network' 
+    },
+    { 
+      id: 6, 
+      name: 'objectDestructuring', 
+      usage: 'const {a,b} = obj', 
+      description: 'Extract object properties', 
+      category: 'syntax' 
+    }
   ];
 
   const challengeTypes = [
-    { id: 1, type: 'algorithm', complexity: 'high', points: 100, solvedBy: [2, 3, 5] },
-    { id: 2, type: 'api', complexity: 'medium', points: 50, solvedBy: [1, 4, 6] },
-    { id: 3, type: 'dom', complexity: 'medium', points: 50, solvedBy: [1, 2, 5] },
-    { id: 4, type: 'data', complexity: 'low', points: 25, solvedBy: [3, 4] },
-    { id: 5, type: 'event', complexity: 'medium', points: 50, solvedBy: [1, 5, 6] }
+    { 
+      id: 1, 
+      type: 'DOM Manipulation', 
+      difficulty: 'easy', 
+      points: 1, 
+      solvedBy: [3], 
+      description: 'Update element text content' 
+    },
+    { 
+      id: 2, 
+      type: 'Array Transformation', 
+      difficulty: 'medium', 
+      points: 2, 
+      solvedBy: [1], 
+      description: 'Filter and map array data' 
+    },
+    { 
+      id: 3, 
+      type: 'API Integration', 
+      difficulty: 'hard', 
+      points: 3, 
+      solvedBy: [5], 
+      description: 'Fetch and display remote data' 
+    },
+    { 
+      id: 4, 
+      type: 'Event Handling', 
+      difficulty: 'medium', 
+      points: 2, 
+      solvedBy: [4], 
+      description: 'Add click event listener' 
+    },
+    { 
+      id: 5, 
+      type: 'Async Operations', 
+      difficulty: 'hard', 
+      points: 3, 
+      solvedBy: [2], 
+      description: 'Handle promise chains' 
+    },
+    { 
+      id: 6, 
+      type: 'Object Destructuring', 
+      difficulty: 'easy', 
+      points: 1, 
+      solvedBy: [6], 
+      description: 'Extract properties from objects' 
+    }
   ];
 
-  // Generate challenges periodically with increasing difficulty
+  // Generate challenges periodically with increasing complexity
   useEffect(() => {
     if (!gameActive) return;
     
-    const interval = 3000 - (challengeLevel * 200);
+    const interval = 4000 - (complexity * 300);
     
     const challengeInterval = setInterval(() => {
       const newChallenge = {
         id: Date.now(),
         challenge: challengeTypes[Math.floor(Math.random() * challengeTypes.length)],
-        time: Math.max(5, 15 - challengeLevel)
+        time: Math.max(5, 15 - complexity)
       };
       setChallenges(prev => [...prev, newChallenge]);
     }, Math.max(500, interval));
     
     return () => clearInterval(challengeInterval);
-  }, [gameActive, challengeLevel]);
+  }, [gameActive, complexity]);
 
   // Countdown challenges
   useEffect(() => {
@@ -625,7 +725,7 @@ const JSLogicGame = ({ onComplete }) => {
         })).filter(challenge => {
           if (challenge.time <= 0) {
             setLives(l => {
-              const newLives = l - 1;
+              const newLives = l - challenge.challenge.points;
               if (newLives <= 0) {
                 setGameActive(false);
                 onComplete(score, "JS Ninja");
@@ -643,10 +743,10 @@ const JSLogicGame = ({ onComplete }) => {
     return () => clearInterval(countdownInterval);
   }, [challenges, gameActive, score, onComplete]);
 
-  // Difficulty progression
+  // Complexity progression
   useEffect(() => {
-    if (score > 0 && score % 200 === 0) {
-      setChallengeLevel(prev => Math.min(prev + 1, 10));
+    if (score > 0 && score % 250 === 0) {
+      setComplexity(prev => Math.min(prev + 1, 10));
       setCombo(0);
     }
   }, [score]);
@@ -658,24 +758,28 @@ const JSLogicGame = ({ onComplete }) => {
     }
   }, [combo, bestCombo]);
 
-  const solveChallenge = (challengeId, concepts) => {
+  const solveChallenge = (challengeId, funcs) => {
     const challenge = challenges.find(c => c.id === challengeId);
     if (!challenge) return;
     
-    const isSolved = challenge.challenge.solvedBy.some(conceptId => 
-      concepts.includes(conceptId)
+    // Check if any selected function solves this challenge
+    const isSolved = challenge.challenge.solvedBy.some(funcId => 
+      funcs.includes(funcId)
     );
     
     if (isSolved) {
-      const pointsEarned = challenge.challenge.points * (combo + 1);
-      setScore(prev => prev + pointsEarned);
-      setCombo(prev => prev + 1);
+      const challengeScore = challenge.challenge.points * 10 * (combo + 1);
+      setScore(prev => prev + challengeScore);
+      setCombo(prev => {
+        const newCombo = prev + 1;
+        return newCombo;
+      });
     } else {
       setLives(prev => {
-        const newLives = prev - 1;
+        const newLives = prev - challenge.challenge.points;
         if (newLives <= 0) {
           setGameActive(false);
-          onComplete(score, "JS Specialist");
+          onComplete(score, "JS Developer");
         }
         return newLives;
       });
@@ -683,19 +787,19 @@ const JSLogicGame = ({ onComplete }) => {
     }
     
     setChallenges(prev => prev.filter(c => c.id !== challengeId));
-    setSelectedConcepts([]);
+    setSelectedFunctions([]);
   };
 
-  const toggleConcept = (conceptId) => {
-    setSelectedConcepts(prev => 
-      prev.includes(conceptId) 
-        ? prev.filter(id => id !== conceptId) 
-        : [...prev, conceptId]
+  const toggleFunction = (funcId) => {
+    setSelectedFunctions(prev => 
+      prev.includes(funcId) 
+        ? prev.filter(id => id !== funcId) 
+        : [...prev, funcId]
     );
   };
 
   return (
-    <div className="js-game">
+    <div className="scripting-game">
       <div className="game-header">
         <div>❤️ Lives: {lives}</div>
         <div>💰 Score: {score}</div>
@@ -705,146 +809,163 @@ const JSLogicGame = ({ onComplete }) => {
         </button>
       </div>
       
-      <div className="concepts-panel">
-        <h4>🔧 JS Concepts</h4>
-        <p className="concepts-description">Select concepts to solve programming challenges</p>
-        <div className="concepts-list">
-          {jsConcepts.map(concept => (
+      <div className="functions-panel">
+        <h4>🔧 JavaScript Functions</h4>
+        <p className="functions-description">Select functions to solve coding challenges</p>
+        <div className="functions-list">
+          {scriptingFunctions.map(func => (
             <div 
-              key={concept.id} 
-              className={`concept ${selectedConcepts.includes(concept.id) ? 'selected' : ''}`}
-              onClick={() => toggleConcept(concept.id)}
+              key={func.id} 
+              className={`function ${selectedFunctions.includes(func.id) ? 'selected' : ''} ${func.category}`}
+              onClick={() => toggleFunction(func.id)}
             >
-              <div className="concept-type">[{concept.type}]</div>
-              <div className="concept-description">{concept.description}</div>
+              <div className="function-name">{func.name}</div>
+              <div className="function-usage">{func.usage}</div>
+              <div className="function-description">{func.description}</div>
             </div>
           ))}
         </div>
       </div>
       
       <div className="challenges-panel">
-        <h4>🚀 Programming Challenges</h4>
-        <p className="challenges-description">Apply concepts to solve logic problems!</p>
+        <h4>🧩 Coding Challenges</h4>
+        <p className="challenges-description">Solve challenges before time runs out!</p>
         <div className="challenges-list">
           {challenges.map(challenge => (
-            <div key={challenge.id} className={`challenge ${challenge.challenge.complexity}`}>
+            <div key={challenge.id} className={`challenge ${challenge.challenge.difficulty}`}>
               <div className="challenge-header">
                 <div className="challenge-type">{challenge.challenge.type}</div>
-                <div className="challenge-points">Points: {challenge.challenge.points}</div>
+                <div className="challenge-points">Points: {challenge.challenge.points}x</div>
               </div>
               <div className="challenge-timer">⏱️ Time: {challenge.time}s</div>
-              <button onClick={() => solveChallenge(challenge.id, selectedConcepts)}>
+              <div className="challenge-description">{challenge.challenge.description}</div>
+              <button onClick={() => solveChallenge(challenge.id, selectedFunctions)}>
                 SOLVE
               </button>
             </div>
           ))}
           
           {challenges.length === 0 && (
-            <p className="no-challenges">✅ No active challenges. Ready for new ones... ✅</p>
+            <p className="no-challenges">✅ No active challenges. Waiting for tasks... ✅</p>
           )}
         </div>
       </div>
       
       {showHint && (
         <div className="hint-box detailed">
-          <h4>🔧 JavaScript Problem Solving:</h4>
+          <h4>🧠 Scripting Strategies:</h4>
           <ul>
-            <li><strong>Concept Matching:</strong> Read challenge types and match with appropriate JS concepts</li>
-            <li><strong>Complexities:</strong> High (purple) most points, Low (green) fewer points</li>
-            <li><strong>Combos:</strong> Solve consecutively for bonus points</li>
-            <li><strong>Progression:</strong> Every 200 points increases challenge frequency</li>
-            <li><strong>Best Combo:</strong> Current record is {bestCombo}x consecutive solves</li>
+            <li><strong>Function Selection:</strong> Read challenge descriptions and match with appropriate methods</li>
+            <li><strong>Difficulties:</strong> Easy (green) gives 1 point, Hard (red) gives 3 points</li>
+            <li><strong>Combos:</strong> Solve without missing to build combos for bonus points</li>
+            <li><strong>Progression:</strong> Every 250 points increases challenge frequency and difficulty</li>
+            <li><strong>Best Combo:</strong> Current record is {bestCombo}x consecutive solutions</li>
+            <li><strong>Categories:</strong>
+              <ul>
+                <li><span className="category data">Data:</span> Array/object manipulation</li>
+                <li><span className="category async">Async:</span> Promises and async operations</li>
+                <li><span className="category ui">UI:</span> DOM updates and manipulation</li>
+                <li><span className="category events">Events:</span> Event handling and listeners</li>
+                <li><span className="category network">Network:</span> API calls and data fetching</li>
+                <li><span className="category syntax">Syntax:</span> ES6+ features and shortcuts</li>
+              </ul>
+            </li>
           </ul>
         </div>
       )}
       
       {!gameActive && (
         <div className="game-over">
-          <h3>Code Challenge Completed!</h3>
+          <h3>Coding Session Ended!</h3>
           <p>Final Score: <span className="score-value">{score}</span> points</p>
           <p>Best Combo: {bestCombo}x</p>
-          <p><em>Press "Back to Hub" to restart</em></p>
+          <p><em>Press "Back to Hub" to code again</em></p>
         </div>
       )}
     </div>
   );
 };
 
-// Responsive Design Game Component
-const ResponsiveDesignGame = ({ onComplete }) => {
-  const [designs, setDesigns] = useState([]);
+// Responsive Designer Game Component
+const ResponsiveDesignerGame = ({ onComplete }) => {
+  const [devices, setDevices] = useState([]);
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(5);
   const [gameActive, setGameActive] = useState(true);
   const [accuracy, setAccuracy] = useState(100);
   const [streak, setStreak] = useState(0);
   const [showHint, setShowHint] = useState(false);
-  const [totalDesigns, setTotalDesigns] = useState(0);
-  const [correctAdaptations, setCorrectAdaptations] = useState(0);
+  const [totalDevices, setTotalDevices] = useState(0);
+  const [correctAdjustments, setCorrectAdjustments] = useState(0);
 
-  const designSamples = [
+  const deviceSamples = [
     {
       id: 1,
-      device: 'tablet',
-      task: 'Fit content in portrait mode',
-      isResponsive: true,
-      issues: ['Overflowing images', 'Too-wide columns']
+      type: 'mobile',
+      viewport: '320px',
+      issue: 'Text too small on mobile',
+      correctApproach: 'Use relative units like em/rem',
+      solution: true
     },
     {
       id: 2,
-      device: 'mobile',
-      task: 'Optimize touch targets',
-      isResponsive: false,
-      issues: ['Small buttons', 'Dense layout']
+      type: 'tablet',
+      viewport: '768px',
+      issue: 'Elements overlapping on tablet',
+      correctApproach: 'Add media queries for breakpoints',
+      solution: true
     },
     {
       id: 3,
-      device: 'desktop',
-      task: 'Expand layout for large screen',
-      isResponsive: true,
-      issues: ['Cramped space', 'Tiny sidebar']
+      type: 'desktop',
+      viewport: '1200px',
+      issue: 'Fixed width breaking layout',
+      correctApproach: 'Use percentage/max-width instead',
+      solution: true
     },
     {
       id: 4,
-      device: 'widescreen',
-      task: 'Utilize extra screen real estate',
-      isResponsive: true,
-      issues: ['Wasted space', 'Misaligned elements']
+      type: 'mobile',
+      viewport: '375px',
+      issue: 'Images overflowing container',
+      correctApproach: 'Set max-width: 100% on images',
+      solution: true
     },
     {
       id: 5,
-      device: 'foldable',
-      task: 'Support crease adaptation',
-      isResponsive: false,
-      issues: ['Content split', 'Poor orientation handling']
+      type: 'tablet',
+      viewport: '1024px',
+      issue: 'Navigation unusable on tablet',
+      correctApproach: 'Implement hamburger menu pattern',
+      solution: true
     }
   ];
 
-  // Generate designs
+  // Generate devices
   useEffect(() => {
     if (!gameActive) return;
     
-    const designInterval = setInterval(() => {
-      const randomDesign = designSamples[Math.floor(Math.random() * designSamples.length)];
-      setDesigns(prev => [...prev, { ...randomDesign, time: 15, id: Date.now() }]);
-      setTotalDesigns(prev => prev + 1);
+    const deviceInterval = setInterval(() => {
+      const randomDevice = deviceSamples[Math.floor(Math.random() * deviceSamples.length)];
+      setDevices(prev => [...prev, { ...randomDevice, time: 15, id: Date.now() }]);
+      setTotalDevices(prev => prev + 1);
     }, Math.max(3000, 8000 - (score * 10)));
     
-    return () => clearInterval(designInterval);
+    return () => clearInterval(deviceInterval);
   }, [gameActive, score]);
 
-  // Countdown designs
+  // Countdown devices
   useEffect(() => {
-    if (!gameActive || designs.length === 0) return;
+    if (!gameActive || devices.length === 0) return;
     
     const countdownInterval = setInterval(() => {
-      setDesigns(prev => 
-        prev.map(design => ({
-          ...design,
-          time: design.time - 1
-        })).filter(design => {
-          if (design.time <= 0) {
-            if (!design.isResponsive) {
+      setDevices(prev => 
+        prev.map(device => ({
+          ...device,
+          time: device.time - 1
+        })).filter(device => {
+          if (device.time <= 0) {
+            if (!device.solution) {
               setLives(l => l - 1);
               setStreak(0);
             }
@@ -856,40 +977,40 @@ const ResponsiveDesignGame = ({ onComplete }) => {
     }, 1000);
     
     return () => clearInterval(countdownInterval);
-  }, [designs, gameActive]);
+  }, [devices, gameActive]);
 
   // Check game over
   useEffect(() => {
     if (lives <= 0) {
       setGameActive(false);
-      onComplete(score, accuracy >= 90 ? "Responsive Expert" : "UX Designer");
+      onComplete(score, accuracy >= 90 ? "Responsiveness Expert" : "UI Designer");
     }
   }, [lives, score, accuracy, onComplete]);
 
-  const adaptDesign = (designId, isResponsive) => {
-    const design = designs.find(d => d.id === designId);
-    if (!design) return;
+  const fixLayout = (deviceId, isResponsive) => {
+    const device = devices.find(d => d.id === deviceId);
+    if (!device) return;
     
-    const correctlyIdentified = (design.isResponsive && isResponsive) || 
-                               (!design.isResponsive && !isResponsive);
+    const correctlyIdentified = (device.solution && isResponsive) || 
+                               (!device.solution && !isResponsive);
     
     if (correctlyIdentified) {
       setScore(prev => prev + 50);
       setStreak(prev => prev + 1);
-      setCorrectAdaptations(prev => prev + 1);
+      setCorrectAdjustments(prev => prev + 1);
     } else {
       setLives(prev => prev - 1);
       setStreak(0);
     }
     
     // Update accuracy
-    setAccuracy(Math.round(((correctAdaptations + (correctlyIdentified ? 1 : 0)) / (totalDesigns + 1)) * 100));
+    setAccuracy(Math.round(((correctAdjustments + (correctlyIdentified ? 1 : 0)) / (totalDevices + 1)) * 100));
     
-    setDesigns(prev => prev.filter(d => d.id !== designId));
+    setDevices(prev => prev.filter(d => d.id !== deviceId));
   };
 
   return (
-    <div className="responsive-game">
+    <div className="responsive-designer-game">
       <div className="game-header">
         <div>❤️ Lives: {lives}</div>
         <div>💰 Score: {score}</div>
@@ -900,177 +1021,150 @@ const ResponsiveDesignGame = ({ onComplete }) => {
         </button>
       </div>
       
-      <div className="design-lab">
-        <h4>📱 Design Lab</h4>
-        <p className="lab-description">Adapt layouts for different viewports quickly!</p>
-        <div className="design-list">
-          {designs.map(design => (
-            <div key={design.id} className="design-card">
-              <div className="design-header">
-                <div className="device">{design.device}</div>
-                <div className="timer">⏱️ {design.time}s</div>
+      <div className="design-screen">
+        <h4>📱 Device Testing Lab</h4>
+        <p className="screen-description">Identify and fix responsive design issues!</p>
+        <div className="device-list">
+          {devices.map(device => (
+            <div key={device.id} className="device-card">
+              <div className="device-header">
+                <div className="device-type">
+                  {device.type === 'mobile' && '📱'}
+                  {device.type === 'tablet' && '💻'}
+                  {device.type === 'desktop' && '🖥️'} {device.type}
+                </div>
+                <div className="viewport-size">{device.viewport}</div>
+                <div className="timer">⏱️ {device.time}s</div>
               </div>
-              <div className="design-task">Task: {design.task}</div>
-              <div className="issues-list">
-                {design.issues.map((issue, idx) => (
-                  <span key={idx} className="issue">⚠️ {issue}</span>
-                ))}
+              <div className="issue-description">
+                <div className="issue">⚠️ Issue: {device.issue}</div>
+                <div className="solution">💡 Fix: {device.correctApproach}</div>
               </div>
-              <div className="design-actions">
+              <div className="device-actions">
                 <button 
-                  className="responsive-btn" 
-                  onClick={() => adaptDesign(design.id, true)}
+                  className="fix-btn" 
+                  onClick={() => fixLayout(device.id, true)}
                 >
-                  ✔ Responsive
+                  🔧 Apply Fix
                 </button>
                 <button 
-                  className="broken-btn" 
-                  onClick={() => adaptDesign(design.id, false)}
+                  className="review-btn" 
+                  onClick={() => fixLayout(device.id, false)}
                 >
-                  ❌ Broken
+                  👁️ Review Later
                 </button>
               </div>
             </div>
           ))}
           
-          {designs.length === 0 && (
-            <p className="no-designs">📭 No pending designs. Checking for new ones...</p>
+          {devices.length === 0 && (
+            <p className="no-devices">📭 No layout issues detected. Great job!</p>
           )}
         </div>
       </div>
       
       {showHint && (
         <div className="hint-box detailed">
-          <h4>📱 Responsive Design Principles:</h4>
+          <h4>📐 Responsive Design Principles:</h4>
           <ul>
-            <li><strong>Viewport Meta:</strong> Always include &lt;meta name="viewport"&gt;</li>
-            <li><strong>CSS Media Queries:</strong> Adjust layout for different screen sizes</li>
-            <li><strong>Flexible Grids:</strong> Use percentages or flexbox/grid instead of fixed widths</li>
-            <li><strong>Scalable Images:</strong> Use max-width: 100% for media elements</li>
-            <li><strong>Mobile First:</strong> Start with mobile styles and enhance for larger screens</li>
-            <li><strong>Touch Targets:</strong> Ensure buttons are at least 44x44 pixels</li>
-            <li><strong>Readability:</strong> Maintain readable text (16px minimum)</li>
+            <li><strong>Mobile First:</strong> Start with small screens then scale up</li>
+            <li><strong>Flexible Units:</strong> Use %, em, rem instead of fixed px values</li>
+            <li><strong>Media Queries:</strong> Set breakpoints for different viewports</li>
+            <li><strong>Scalable Images:</strong> Use max-width: 100% for media</li>
+            <li><strong>Touch Targets:</strong> Make buttons large enough for fingers (min 44px)</li>
+            <li><strong>Viewport Meta:</strong> Include &lt;meta name="viewport"&gt; tag</li>
+            <li><strong>CSS Grid/Flexbox:</strong> Modern layout techniques for responsiveness</li>
           </ul>
-          <p><strong>Current Stats:</strong> Adaptations: {totalDesigns}, Accuracy: {accuracy}%, Streak: {streak}x</p>
+          <p><strong>Current Stats:</strong> Devices tested: {totalDevices}, Accuracy: {accuracy}%, Streak: {streak}x</p>
         </div>
       )}
       
       {!gameActive && (
         <div className="game-over">
-          <h3>Design Lab Closed!</h3>
+          <h3>Design QA Session Complete!</h3>
           <p>Final Score: <span className="score-value">{score}</span> points</p>
-          <p>Adaptation Accuracy: {accuracy}%</p>
-          <p><em>Press "Back to Hub" to play again</em></p>
+          <p>Design Accuracy: {accuracy}%</p>
+          <p><em>Press "Back to Hub" to test more layouts</em></p>
         </div>
       )}
     </div>
   );
 };
 
-// Framework Mastery Game Component
-const FrameworkMasteryGame = ({ onComplete }) => {
-  const [project, setProject] = useState('');
-  const [completeness, setCompleteness] = useState(0);
+// Deployment Dash Game Component
+const DeploymentDashGame = ({ onComplete }) => {
+  const [code, setCode] = useState('');
+  const [buildStatus, setBuildStatus] = useState('idle');
+  const [deploySteps, setDeploySteps] = useState(3);
   const [attempts, setAttempts] = useState(5);
-  const [componentsPerSecond, setComponentsPerSecond] = useState(5);
-  const [timeToComplete, setTimeToComplete] = useState(0);
   const [gameActive, setGameActive] = useState(true);
   const [showHint, setShowHint] = useState(false);
-  const [buildingTime, setBuildingTime] = useState(0);
-  const [buildHistory, setBuildHistory] = useState([]);
+  const [buildTime, setBuildTime] = useState(0);
+  const [deploymentHistory, setDeploymentHistory] = useState([]);
 
-  const calculateCompleteness = (proj) => {
-    let score = 0;
-    
-    // Feature checks
-    if (proj.includes('state')) score += 20;
-    if (proj.includes('props')) score += 20;
-    if (proj.includes('hooks')) score += 20;
-    if (proj.includes('router')) score += 15;
-    if (proj.includes('api')) score += 15;
-    if (proj.includes('test')) score += 10;
-    
-    // Completeness deductions
-    if (/(.)\1{2,}/.test(proj)) score -= 20;
-    if (/copy/i.test(proj)) score -= 10;
-    
-    return Math.min(100, Math.max(0, score));
-  };
+  const deploymentOptions = [
+    { step: 1, title: 'Lint Code', description: 'Check for syntax errors', duration: 2000 },
+    { step: 2, title: 'Run Tests', description: 'Execute unit/integration tests', duration: 3000 },
+    { step: 3, title: 'Optimize Assets', description: 'Minify CSS/JS and compress images', duration: 4000 },
+    { step: 4, title: 'Build Project', description: 'Compile and bundle resources', duration: 5000 },
+    { step: 5, title: 'Deploy Assets', description: 'Upload to CDN', duration: 3000 }
+  ];
 
-  const calculateCompletionTime = (proj) => {
-    const complexityFactors = {
-      state: 2,
-      props: 1.5,
-      hooks: 3,
-      router: 4,
-      api: 3.5,
-      test: 2.5
-    };
-    
-    let totalFactors = 0;
-    Object.entries(complexityFactors).forEach(([factor, weight]) => {
-      if (proj.toLowerCase().includes(factor)) {
-        totalFactors += weight;
-      }
-    });
-    
-    const complexity = totalFactors * 20;
-    const seconds = complexity / componentsPerSecond;
-    
-    return seconds;
-  };
-
-  const formatTime = (seconds) => {
-    if (seconds < 60) return `${Math.round(seconds)} seconds`;
-    if (seconds < 3600) return `${Math.round(seconds/60)} minutes`;
-    return `${Math.round(seconds/3600)} hours`;
-  };
-
-  const buildProject = () => {
+  const simulateBuildProcess = () => {
     if (attempts <= 1) {
       setGameActive(false);
-      onComplete(0, "Framework Novice");
+      onComplete(0, "Deployment Failed");
       return;
     }
-    
+
     setAttempts(prev => prev - 1);
-    
-    // Simulate build success
-    const successChance = completeness / 100;
-    const success = Math.random() < successChance / 5;
-    
-    if (success) {
-      setGameActive(false);
-      onComplete(200, "Framework Expert");
-    } else {
-      setBuildHistory(prev => [
-        ...prev, 
-        { attempt: 6 - attempts, completed: false, time: formatTime(timeToComplete) }
-      ]);
-    }
+    setBuildStatus('building');
+    setBuildTime(0);
+
+    // Simulate deployment process
+    let totalTime = 0;
+    deploymentOptions.forEach(option => {
+      totalTime += option.duration;
+    });
+
+    setBuildTime(totalTime / 1000);
+
+    // After build simulation completes
+    setTimeout(() => {
+      const buildSuccess = Math.random() > 0.3; // 70% success rate
+      
+      if (buildSuccess) {
+        setBuildStatus('success');
+        setGameActive(false);
+        onComplete(200, "DevOps Master");
+        setDeploymentHistory(prev => [...prev, {
+          id: Date.now(),
+          timestamp: new Date().toLocaleTimeString(),
+          status: 'success',
+          buildTime: (totalTime / 1000).toFixed(1),
+          steps: deploySteps
+        }]);
+      } else {
+        setBuildStatus('failed');
+        setDeploymentHistory(prev => [...prev, {
+          id: Date.now(),
+          timestamp: new Date().toLocaleTimeString(),
+          status: 'failed',
+          error: 'Build failed at optimization step',
+          steps: deploySteps
+        }]);
+      }
+    }, totalTime);
   };
 
-  useEffect(() => {
-    const completenessValue = calculateCompleteness(project);
-    setCompleteness(completenessValue);
-    
-    const timeInSeconds = calculateCompletionTime(project);
-    setTimeToComplete(timeInSeconds);
-    setBuildingTime(formatTime(timeInSeconds));
-  }, [project]);
-
-  const getCompletenessLevel = () => {
-    if (completeness >= 80) return { label: 'Production Ready', color: '#33cc33' };
-    if (completeness >= 60) return { label: 'Well Structured', color: '#66cc66' };
-    if (completeness >= 40) return { label: 'Functional', color: '#ffcc00' };
-    if (completeness >= 20) return { label: 'Basic', color: '#ff9966' };
-    return { label: 'Incomplete', color: '#ff4d4d' };
+  const adjustStep = (change) => {
+    setDeploySteps(prev => Math.max(1, Math.min(5, prev + change)));
   };
 
   return (
-    <div className="framework-game">
+    <div className="deployment-game">
       <div className="game-header">
-        <div className="attempts-left">🚧 Builds Remaining: {attempts}</div>
+        <div className="attempts-left">⚙️ Attempts Left: {attempts}</div>
         <button className="hint-toggle minimal" onClick={() => setShowHint(!showHint)}>
           {showHint ? 'Hide Hints' : 'Show Hints'}
         </button>
@@ -1078,101 +1172,106 @@ const FrameworkMasteryGame = ({ onComplete }) => {
       
       {gameActive ? (
         <>
-          <div className="project-challenge">
-            <h3>⚛️ FRAMEWORK MASTERY</h3>
-            <p className="instructions">Describe your project architecture to build it!</p>
+          <div className="deployment-challenge">
+            <h3>🚀 DEPLOYMENT DASH</h3>
+            <p className="instructions">Configure your deployment pipeline for successful release!</p>
             
-            <div className="project-input-area">
+            <div className="code-editor">
               <textarea 
-                value={project}
-                onChange={(e) => setProject(e.target.value)}
-                placeholder="Describe your project features (e.g., user state management, API integration)"
-                rows="5"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                placeholder="Paste your clean code here..."
+                rows="6"
+                cols="60"
               />
-              <div className="completeness-meter">
-                <div 
-                  className="completeness-fill" 
-                  style={{
-                    width: `${completeness}%`,
-                    backgroundColor: getCompletenessLevel().color
-                  }}
-                ></div>
-                <div className="completeness-label">
-                  {getCompletenessLevel().label} ({completeness}/100)
-                </div>
+            </div>
+            
+            <div className="pipeline-config">
+              <h4>🛠️ Deployment Pipeline Configuration</h4>
+              <div className="*steps-control">
+                <button onClick={() => adjustStep(-1)} disabled={deploySteps <= 1}>⬅️ Fewer Steps</button>
+                <span className="steps-display">Pipeline Steps: {deploySteps}</span>
+                <button onClick={() => adjustStep(1)} disabled={deploySteps >= 5}>More Steps ➡️</button>
+              </div>
+              
+              <div className="pipeline-steps">
+                {deploymentOptions.slice(0, deploySteps).map(option => (
+                  <div key={option.step} className="pipeline-step">
+                    <div className="step-number">Step {option.step}</div>
+                    <div className="step-title">{option.title}</div>
+                    <div className="step-description">{option.description}</div>
+                  </div>
+                ))}
               </div>
             </div>
             
             <div className="stats-panel">
               <div className="stat">
-                <span>🏗️ Build Time Est:</span>
-                <span className="value">{buildingTime}</span>
+                <span>⏱️ Estimated Build Time:</span>
+                <span className="value">{buildTime.toFixed(1)}s</span>
               </div>
               <div className="stat">
-                <span>⚡ Components/sec:</span>
-                <span className="value">{componentsPerSecond}</span>
-              </div>
-              <div className="stat">
-                <span>🏗️ Build Attempts:</span>
+                <span>🔁 Deployment Attempts:</span>
                 <span className="value">{6-attempts}/5</span>
               </div>
             </div>
             
             <button 
-              className="attempt-btn" 
-              onClick={buildProject}
-              disabled={attempts <= 0}
+              className="deploy-btn" 
+              onClick={simulateBuildProcess}
+              disabled={buildStatus === 'building' || attempts <= 0}
             >
-              Start Build Process
+              {buildStatus === 'building' ? '📦 Deploying...' : '🚀 Start Deployment'}
             </button>
           </div>
           
-          <div className="build-history">
-            <h4>🔨 Build History</h4>
-            {buildHistory.length > 0 ? (
+          <div className="deployment-history">
+            <h4>📜 Deployment History</h4>
+            {deploymentHistory.length > 0 ? (
               <ul>
-                {buildHistory.map((entry, index) => (
+                {deploymentHistory.map((entry, index) => (
                   <li key={index} className="history-entry">
-                    <span>Build #{entry.attempt}:</span>
-                    <span className={entry.completed ? 'success' : 'failed'}>
-                      {entry.completed ? '✅ Completed!' : '❌ Failed'}
+                    <span>[{entry.timestamp}]</span>
+                    <span className={entry.status}>
+                      {entry.status === 'success' ? '✅ Success' : '❌ Failed'}
                     </span>
-                    <span>Est time: {entry.time}</span>
+                    {entry.buildTime && <span>({entry.buildTime}s build)</span>}
+                    {entry.error && <span>Error: {entry.error}</span>}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p>No builds recorded yet</p>
+              <p>No deployments yet. Ready for your first launch?</p>
             )}
           </div>
           
           {showHint && (
             <div className="hint-box detailed">
-              <h4>⚛️ Framework Best Practices:</h4>
+              <h4>🌐 Deployment Best Practices:</h4>
               <ul>
-                <li><strong>Component Architecture:</strong> Separate dumb/presentational from smart/components</li>
-                <li><strong>State Management:</strong> Use Context API, Redux, or built-in solutions</li>
-                <li><strong>Routing:</strong> Implement client-side routing for SPA behavior</li>
-                <li><strong>Data Fetching:</strong> Integrate with REST/GraphQL APIs effectively</li>
-                <li><strong>Testing:</strong> Include unit/integration tests (Jest, React Testing Library)</li>
-                <li><strong>Performance:</strong> Optimize re-renders with memoization</li>
-                <li><strong>Bundling:</strong> Use modern bundlers (Webpack, Vite, Parcel)</li>
-                <li><strong>Ecosystem:</strong> Leverage community libraries appropriately</li>
+                <li><strong>Code Quality:</strong> Lint before deploying to catch syntax errors</li>
+                <li><strong>Testing:</strong> Run automated tests to prevent regressions</li>
+                <li><strong>Optimization:</strong> Minify assets and compress resources</li>
+                <li><strong>CI/CD:</strong> Automate builds and deployments</li>
+                <li><strong>Rollbacks:</strong> Always have a quick rollback plan</li>
+                <li><strong>Monitoring:</strong> Track performance and errors post-deploy</li>
+                <li><strong>Blue-Green:</strong> Deploy to alternate environment first</li>
+                <li><strong>Canary Releases:</strong> Roll out to subset of users first</li>
               </ul>
-              <p><strong>Current Project Quality:</strong> {completeness}% | Est completion time: {buildingTime}</p>
+              <p><strong>Current Pipeline:</strong> {deploySteps} steps | Est. time: {buildTime.toFixed(1)}s</p>
             </div>
           )}
         </>
       ) : (
         <div className="game-over">
-          <h3>Project Status: {attempts <= 1 ? 'FAILED!' : 'SUCCESS!'}</h3>
-          <p>Build Outcome: {attempts <= 1 ? 'Project incomplete' : 'App deployed successfully'}</p>
-          <p>Score: {attempts > 1 ? '200 points awarded' : '0 points'}</p>
-          <p><em>Press "Back to Hub" to try again</em></p>
+          <h3>Deployment Status: {buildStatus === 'success' ? 'SUCCESS!' : 'FAILED!'}</h3>
+          <p>Outcome: {buildStatus === 'success' ? 'Application deployed successfully' : 'Deployment encountered errors'}</p>
+          <p>Score: {buildStatus === 'success' ? '200 points awarded' : '0 points'}</p>
+          <p><em>Press "Back to Hub" to deploy again</em></p>
         </div>
       )}
     </div>
   );
 };
 
-export default WebDevGamesHub;
+export default WebGamesHub;

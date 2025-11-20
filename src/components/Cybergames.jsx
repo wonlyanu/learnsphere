@@ -3,11 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Cybergames.css';
 
 // Import GIFs for game interactions
-const fireAnimation = "https://media.giphy.com/media/3o7TKsQ8UQ4l4LhGz6/giphy.gif";
-const lockAnimation = "https://media.giphy.com/media/l0HlNaQ6YlYp8/giphy.gif";
-const shieldAnimation = "https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif";
-const hackerAnimation = "https://media.giphy.com/media/Lr4CaCvfRuGDC/giphy.gif";
-const balloonAnimation = "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif";
+const fireAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNpc21jNDcxdjVlZmZoa3BiaGJ1OHIzbzM2bDBpaXU2YzIxc3NoMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9B7XwCQZRQfQs/giphy.gif";
+const lockAnimation = "https://media.giphy.com/media/tIeCLkB8geYtW/giphy.gif";
+const shieldAnimation = "https://media.giphy.com/media/WoWm8YzFQJg5W/giphy.gif";
+const hackerAnimation = "https://media.giphy.com/media/3o7qE1YN7aBOFPRw8E/giphy.gif";
+const balloonAnimation = "https://media.giphy.com/media/l41K4kQkLJ1Xy2V9y/giphy.gif";
+
 
 const CyberGamesHub = ({ goBack }) => {
   const videoRef = useRef(null);
@@ -26,7 +27,6 @@ const CyberGamesHub = ({ goBack }) => {
       id: 'escape',
       title: 'Cyber Escape Room',
       description: 'Solve puzzles to escape the digital facility',
-     
       gif: fireAnimation,
       component: <CyberEscapeRoom onComplete={(score, achievement) => updateScore(score, achievement)} />
     },
@@ -125,26 +125,38 @@ const CyberGamesHub = ({ goBack }) => {
 
   return (
     <div className="cyber-games-hub">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
+      {/* Background GIF */}
+      <img
         className="background-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src="/videos/respage.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        src="/videos/gamebg.gif"
+        alt="Games Background Animation"
+      />
 
-      {/* Background Smoke Effect */}
-      <div className="background-smoke"></div>
+<header className="hub-header">
+  <button className="back-btn" onClick={goBack}>← Back to Home</button>
 
-      <header className="hub-header">
-        <button className="back-btn" onClick={goBack}>← Back to Home</button>
-        <h1><center> CYBER SECURE GAMES</center> </h1>
-      </header>
+  <h1
+    style={{
+      fontcolor: "#f0c0f8ff",
+      fontSize: "4rem",
+      fontWeight: "900",
+      textAlign: "center",
+      marginTop: "20px",
+      letterSpacing: "4px",        // wide futuristic text
+      fontFamily: "'Orbitron', sans-serif", // futuristic font
+      textShadow: `
+
+
+        2px 2px 4px rgba(52, 11, 52, 0.8)   /* outer outline */
+      `
+    }}
+  >
+    CYBER SECURE GAMES
+  </h1>
+</header>
+
+
+
 
       <div className="player-stats-container">
         <div className="stat-badge">
@@ -1049,7 +1061,7 @@ const PasswordFortressGame = ({ onComplete }) => {
     if (/[A-Z]/.test(pwd)) score += 10;
     if (/[0-9]/.test(pwd)) score += 10;
     if (/[^A-Za-z0-9]/.test(pwd)) score += 20;
-    
+
     // Complexity patterns
     if (/(.)\1{2,}/.test(pwd)) score -= 20; // Repeated chars
     if (/123|abc|qwe/.test(pwd)) score -= 20; // Common sequences

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { playClickSound } from "./utils/clickSound";
 
 const CarouselHome = () => {
   const [text, setText] = useState('');
@@ -32,9 +33,10 @@ const CarouselHome = () => {
     e.preventDefault();
     if (inputText.trim()) {
       setMessages(prev => [...prev, { sender: 'user', text: inputText }]);
-      // Simple AI responses based on keywords
+
       const lowerText = inputText.toLowerCase();
       let response = 'I\'m here to help with cybersecurity topics. Ask me about offensive security, defensive measures, or basics!';
+
       if (lowerText.includes('offensive')) {
         response = 'Offensive security involves penetration testing to identify vulnerabilities. Want to learn more?';
       } else if (lowerText.includes('defensive')) {
@@ -42,15 +44,18 @@ const CarouselHome = () => {
       } else if (lowerText.includes('basics')) {
         response = 'Cybersecurity basics include strong passwords, two-factor authentication, and regular updates.';
       }
+
       setTimeout(() => {
         setMessages(prev => [...prev, { sender: 'ai', text: response }]);
       }, 500);
+
       setInputText('');
     }
   };
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+
       <video
         autoPlay
         muted
@@ -67,8 +72,42 @@ const CarouselHome = () => {
         }}
       >
         <source src="/home1.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
+
+      {/* Background Music */}
+      <audio src="/1.mp3" autoPlay loop />
+
+      {/* Back Button */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '5%',
+          left: '3%',
+          zIndex: 2
+        }}
+      >
+        <button
+          onClick={() => {
+            playClickSound();
+            navigate('/');
+          }}
+          style={{
+            background: 'rgba(0,0,0,0.5)',
+            color: 'white',
+            border: '2px solid white',
+            padding: '0.4rem 0.8rem',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            borderRadius: '10px',
+            fontFamily: "'OnePieceFont', 'Comic Sans MS', cursive, sans-serif",
+            boxShadow: '0 0 5px white'
+          }}
+        >
+          ⬅ Back
+        </button>
+      </div>
+
+      {/* Title */}
       <div style={{
         position: 'absolute',
         top: '20%',
@@ -80,8 +119,12 @@ const CarouselHome = () => {
         fontFamily: "'OnePieceFont', 'Arial', sans-serif"
       }}>
         <h1 style={{ fontSize: '3rem', marginBottom: '2rem', fontWeight: 'bold', textShadow: '0 0 10px black' }}>{text}</h1>
+
         <button
-          onClick={() => setShowPopup(true)}
+          onClick={() => {
+            playClickSound();
+            setShowPopup(true);
+          }}
           style={{
             background: 'transparent',
             border: '2px solid white',
@@ -96,6 +139,8 @@ const CarouselHome = () => {
           View More
         </button>
       </div>
+
+      {/* Get Started Button */}
       <div style={{
         position: 'absolute',
         bottom: '5%',
@@ -104,7 +149,10 @@ const CarouselHome = () => {
         zIndex: 1
       }}>
         <button
-          onClick={() => navigate('/game-selection')}
+          onClick={() => {
+            playClickSound();
+            navigate('/game-selection');
+          }}
           style={{
             background: 'green',
             color: 'white',
@@ -121,9 +169,13 @@ const CarouselHome = () => {
           Get Started
         </button>
       </div>
-      {/* Robot Icon at Bottom Right */}
+
+      {/* Chat Icon */}
       <div
-        onClick={() => setShowChat(!showChat)}
+        onClick={() => {
+          playClickSound();
+          setShowChat(!showChat);
+        }}
         style={{
           position: 'fixed',
           bottom: '5%',
@@ -135,7 +187,8 @@ const CarouselHome = () => {
       >
         🤖
       </div>
-      {/* Small Chat Window */}
+
+      {/* Chat Window */}
       {showChat && (
         <div style={{
           position: 'fixed',
@@ -154,7 +207,10 @@ const CarouselHome = () => {
           <div style={{ padding: '0.5rem', background: 'transparent', color: 'white', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             AI Assistant
             <button
-              onClick={() => setShowChat(false)}
+              onClick={() => {
+                playClickSound();
+                setShowChat(false);
+              }}
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -166,6 +222,7 @@ const CarouselHome = () => {
               ✕
             </button>
           </div>
+
           <div style={{ flex: 1, overflowY: 'auto', padding: '0.5rem' }}>
             {messages.map((msg, index) => (
               <div key={index} style={{
@@ -187,6 +244,7 @@ const CarouselHome = () => {
             ))}
             <div ref={messagesEndRef} />
           </div>
+
           <form onSubmit={handleSendMessage} style={{ padding: '0.5rem', borderTop: '1px solid #333' }}>
             <input
               type="text"
@@ -207,6 +265,8 @@ const CarouselHome = () => {
           </form>
         </div>
       )}
+
+      {/* Popup */}
       {showPopup && (
         <div style={{
           position: 'fixed',
@@ -231,20 +291,14 @@ const CarouselHome = () => {
             textAlign: 'left'
           }}>
             <h2 style={{ textAlign: 'center', marginBottom: '1rem' }}>About Cybersecurity</h2>
-            <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These attacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes.</p>
-            <p>Key areas of cybersecurity include:</p>
-            <ul style={{ marginLeft: '1.5rem', lineHeight: '1.6' }}>
-              <li><strong>Network Security:</strong> Protecting the usability and integrity of your network and data. This includes firewalls, intrusion detection systems, and VPNs.</li>
-              <li><strong>Application Security:</strong> Ensuring applications are secure by finding, fixing, and enhancing the security of software applications throughout their lifecycle.</li>
-              <li><strong>Information Security:</strong> Safeguarding information from unauthorized access, use, disclosure, disruption, modification, or destruction.</li>
-              <li><strong>Operational Security:</strong> Identifying vulnerable areas in an organization's processes and managing them to prevent successful cyber attacks.</li>
-              <li><strong>End-User Education:</strong> Training employees on how to spot phishing attempts, use strong passwords, and avoid risky behaviors.</li>
-              <li><strong>Physical Security:</strong> Protecting hardware and data centers from physical threats like theft or natural disasters.</li>
-            </ul>
-            <p>With the rise of remote work, cloud computing, and IoT devices, cybersecurity threats are more sophisticated than ever. Common threats include malware, ransomware, DDoS attacks, and social engineering. Staying protected requires a multi-layered approach, including regular updates, employee training, and robust security tools.</p>
-            <p>Explore our sections on Offensive and Defensive Security to dive deeper!</p>
+
+            <p>Cybersecurity is the practice of protecting systems...</p>
+
             <button
-              onClick={() => setShowPopup(false)}
+              onClick={() => {
+                playClickSound();
+                setShowPopup(false);
+              }}
               style={{
                 background: 'white',
                 color: 'black',
@@ -257,9 +311,11 @@ const CarouselHome = () => {
             >
               Close
             </button>
+
           </div>
         </div>
       )}
+
     </div>
   );
 };

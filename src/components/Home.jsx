@@ -156,6 +156,7 @@ const Home = ({
 
       {/* Explore Section */}
       {/* Explore Section */}
+{/* Explore Section */}
 <section className="explore-section">
   <div className="explore-inner">
     <div className="explore-intro">
@@ -169,6 +170,8 @@ const Home = ({
     </div>
 
     <div className="course-cards">
+
+      {/* Cyber Security */}
       <div
         className="course-card"
         onClick={(e) => {
@@ -193,6 +196,7 @@ const Home = ({
         </div>
       </div>
 
+      {/* Web Development */}
       <div
         className="course-card"
         onClick={(e) => {
@@ -217,33 +221,12 @@ const Home = ({
         </div>
       </div>
 
-      <div
-        className="course-card"
-        onClick={(e) => {
-          e.stopPropagation();
-          const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
-          if (savedUser?.loggedIn) goToCybergames();
-          else window.openSignupPopup();
-        }}
-      >
-        <video
-          src="/videos/games.mp4"
-          className="course-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-        <div className="course-info">
-          <h3>Cyber Games</h3>
-          <p>
-            Challenge yourself with interactive cybersecurity games. Learn through play and earn achievements.
-          </p>
-        </div>
-      </div>
+     
+
     </div>
   </div>
 </section>
+
 
 
       {/* Video Slider */}

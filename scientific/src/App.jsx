@@ -14,32 +14,38 @@ import Intermediate from "./pages/Intermediate";
 import IntermediateTest from "./pages/IntermediateTest";
 import Advanced from "./pages/Advanced";
 import AdvancedTest from "./pages/AdvancedTest";
+import Chatbot from "./pages/Chatbot"; // 👈 import chatbot
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MainLanding />} />
-        <Route path="/frontend" element={<FrontendHome />} />
-        <Route path="/backend" element={<BackendHome />} />
-        <Route path="/levels" element={<Levels />} />
-        <Route path="/frontend-levels" element={<Levels />} />
+      <div style={{ position: "relative", minHeight: "100vh" }}>
+        <Routes>
+          <Route path="/" element={<MainLanding />} />
+          <Route path="/frontend" element={<FrontendHome />} />
+          <Route path="/backend" element={<BackendHome />} />
+          <Route path="/levels" element={<Levels />} />
+          <Route path="/frontend-levels" element={<Levels />} />
 
-        {/* Beginner routes */}
-        <Route path="/beginner" element={<Beginner />} />
-        <Route path="/beginner/test" element={<BeginnerTest />} />
-        <Route path="/:type/level/:level" element={<LevelPage />} />
-        <Route path="/:type/level/:level/lesson" element={<LessonPage />} />
-        <Route path="/:type/level/:level/quiz" element={<QuizPage />} />
+          {/* Beginner routes */}
+          <Route path="/beginner" element={<Beginner />} />
+          <Route path="/beginner/test" element={<BeginnerTest />} />
+          <Route path="/:type/level/:level" element={<LevelPage />} />
+          <Route path="/:type/level/:level/lesson" element={<LessonPage />} />
+          <Route path="/:type/level/:level/quiz" element={<QuizPage />} />
 
-        {/* Intermediate routes */}
-        <Route path="/intermediate" element={<Intermediate />} />
-        <Route path="/intermediate/test" element={<IntermediateTest />} />
+          {/* Intermediate routes */}
+          <Route path="/intermediate" element={<Intermediate />} />
+          <Route path="/intermediate/test" element={<IntermediateTest />} />
 
-        {/* Advanced routes */}
-        <Route path="/advanced" element={<Advanced />} />
-        <Route path="/advanced-test" element={<AdvancedTest />} />
-      </Routes>
+          {/* Advanced routes */}
+          <Route path="/advanced" element={<Advanced />} />
+          <Route path="/advanced-test" element={<AdvancedTest />} />
+        </Routes>
+
+        {/* 👇 Chatbot shown on all pages */}
+        <Chatbot />
+      </div>
     </Router>
   );
 }

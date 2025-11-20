@@ -121,7 +121,7 @@ export default function Onboarding({ goToTechnology }) {
         if (selectedPlayground === "anime") {
           window.location.href = "http://localhost:3000"; // Anime runs on 3000
         } else if (selectedPlayground === "scientific") {
-          window.location.href = "http://localhost:5177"; // Scientific runs on 5177
+          window.location.href = "http://localhost:5174"; // Scientific runs on 5177
         }
         localStorage.removeItem("selectedPlayground"); // Clean up
       } else {

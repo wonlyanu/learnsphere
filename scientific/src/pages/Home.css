@@ -62,3 +62,24 @@
   color: #fff;
   font-style: italic;
 }
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #ff00ea;
+  color: #ff00ea;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #ff00ea;
+  color: #000;
+  box-shadow: 0 0 15px #ff00ea;
+}

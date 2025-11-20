@@ -10,8 +10,17 @@ const CarouselHomeWeb = () => {
   ]);
   const [inputText, setInputText] = useState('');
   const messagesEndRef = useRef(null);
+  const bgAudioRef = useRef(null);   // 🎵 Background music reference
   const navigate = useNavigate();
 
+  // ▶ CLICK SOUND
+  const playClickSound = () => {
+    const audio = new Audio('/click.mp3');
+    audio.volume = 1.0;
+    audio.play().catch(() => {});
+  };
+
+  // ▶ Typing animation
   useEffect(() => {
     const fullText = "WELCOME TO THE WORLD OF WEB DEVELOPMENT";
     let i = 0;
@@ -22,18 +31,22 @@ const CarouselHomeWeb = () => {
     }, 100);
   }, []);
 
+  // ▶ Auto-scroll chat
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
   useEffect(scrollToBottom, [messages]);
 
+  // ▶ Chat message handler
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (inputText.trim()) {
+      playClickSound();
+
       setMessages(prev => [...prev, { sender: 'user', text: inputText }]);
       const lowerText = inputText.toLowerCase();
       let response = 'I can help with frontend, backend, or general web development topics.';
+
       if (lowerText.includes('frontend')) {
         response = 'Frontend development focuses on HTML, CSS, JavaScript, and UX. Want to learn more?';
       } else if (lowerText.includes('backend')) {
@@ -41,15 +54,38 @@ const CarouselHomeWeb = () => {
       } else if (lowerText.includes('basics')) {
         response = 'Web development basics include semantic HTML, responsive CSS, and building interactive UIs with JavaScript.';
       }
+
       setTimeout(() => {
         setMessages(prev => [...prev, { sender: 'ai', text: response }]);
       }, 500);
+
       setInputText('');
     }
   };
 
+  // ▶ Background Music Start / Stop (WARNING FIXED)
+  useEffect(() => {
+    const audio = bgAudioRef.current;  // ⭐ Save value now
+
+    if (audio) {
+      audio.volume = 0.4;
+      audio.play().catch(() => {});
+    }
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
+
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+
+      {/* 🎵 BACKGROUND MUSIC */}
+      <audio ref={bgAudioRef} src="/1.mp3" loop />
+
       <video
         autoPlay
         muted
@@ -68,6 +104,27 @@ const CarouselHomeWeb = () => {
         <source src="/home1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+
+      {/* 🔙 Back Button */}
+      <div style={{ position: 'absolute', top: '5%', left: '3%', zIndex: 2 }}>
+        <button
+          onClick={() => { playClickSound(); navigate('/'); }}
+          style={{
+            background: 'rgba(0,0,0,0.5)',
+            color: 'white',
+            border: '2px solid white',
+            padding: '0.4rem 0.8rem',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            borderRadius: '10px',
+            boxShadow: '0 0 5px white'
+          }}
+        >
+          ⬅ Back
+        </button>
+      </div>
+
+      {/* Heading + View More */}
       <div style={{
         position: 'absolute',
         top: '20%',
@@ -75,26 +132,29 @@ const CarouselHomeWeb = () => {
         transform: 'translateX(-50%)',
         textAlign: 'center',
         color: 'white',
-        zIndex: 1,
-        fontFamily: "'OnePieceFont', 'Arial', sans-serif"
+        zIndex: 1
       }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: '2rem', fontWeight: 'bold', textShadow: '0 0 10px black' }}>{text}</h1>
+        <h1 style={{ fontSize: '3rem', marginBottom: '2rem', fontWeight: 'bold', textShadow: '0 0 10px black' }}>
+          {text}
+        </h1>
+
         <button
-          onClick={() => setShowPopup(true)}
+          onClick={() => { playClickSound(); setShowPopup(true); }}
           style={{
             background: 'transparent',
             border: '2px solid white',
             color: 'white',
             padding: '0.3rem 0.6rem',
-            margin: '1rem 0 1rem -3rem',
             cursor: 'pointer',
             fontSize: '0.9rem',
-            fontFamily: "'OnePieceFont', 'Comic Sans MS', cursive, sans-serif"
+             fontFamily: "'OnePieceFont', 'Comic Sans MS', cursive, sans-serif"
           }}
         >
           View More
         </button>
       </div>
+
+      {/* Get Started */}
       <div style={{
         position: 'absolute',
         bottom: '5%',
@@ -103,7 +163,7 @@ const CarouselHomeWeb = () => {
         zIndex: 1
       }}>
         <button
-          onClick={() => navigate('/web-game-selection')}
+          onClick={() => { playClickSound(); navigate('/web-game-selection'); }}
           style={{
             background: 'green',
             color: 'white',
@@ -113,15 +173,16 @@ const CarouselHomeWeb = () => {
             fontSize: '1.2rem',
             borderRadius: '20px',
             boxShadow: '0 0 10px white',
-            marginLeft: '-4rem',
-            fontFamily: "'OnePieceFont', 'Comic Sans MS', cursive, sans-serif"
+             fontFamily: "'OnePieceFont', 'Comic Sans MS', cursive, sans-serif"
           }}
         >
           Get Started
         </button>
       </div>
+
+      {/* Chat Bot Icon */}
       <div
-        onClick={() => setShowChat(!showChat)}
+        onClick={() => { playClickSound(); setShowChat(!showChat); }}
         style={{
           position: 'fixed',
           bottom: '5%',
@@ -133,6 +194,7 @@ const CarouselHomeWeb = () => {
       >
         🤖
       </div>
+
       {showChat && (
         <div style={{
           position: 'fixed',
@@ -148,21 +210,16 @@ const CarouselHomeWeb = () => {
           borderRadius: '10px',
           border: '1px solid white'
         }}>
-          <div style={{ padding: '0.5rem', background: 'transparent', color: 'white', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
             Dev Assistant
             <button
-              onClick={() => setShowChat(false)}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'white',
-                cursor: 'pointer',
-                fontSize: '1.2rem'
-              }}
+              onClick={() => { playClickSound(); setShowChat(false); }}
+              style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
             >
               ✕
             </button>
           </div>
+
           <div style={{ flex: 1, overflowY: 'auto', padding: '0.5rem' }}>
             {messages.map((msg, index) => (
               <div key={index} style={{
@@ -172,11 +229,8 @@ const CarouselHomeWeb = () => {
                 <div style={{
                   display: 'inline-block',
                   background: msg.sender === 'user' ? '#007bff' : '#333',
-                  color: 'white',
                   padding: '0.3rem 0.6rem',
-                  borderRadius: '10px',
-                  maxWidth: '80%',
-                  fontSize: '0.9rem'
+                  borderRadius: '10px'
                 }}>
                   {msg.text}
                 </div>
@@ -184,26 +238,27 @@ const CarouselHomeWeb = () => {
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <form onSubmit={handleSendMessage} style={{ padding: '0.5rem', borderTop: '1px solid #333' }}>
+
+          <form onSubmit={handleSendMessage} style={{ padding: '0.5rem' }}>
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Type a message..."
+              placeholder="Type here..."
               style={{
                 width: '100%',
                 padding: '0.3rem',
                 background: '#333',
                 color: 'white',
-                border: 'none',
                 borderRadius: '10px',
-                outline: 'none',
-                fontSize: '0.9rem'
+                border: 'none'
               }}
             />
           </form>
         </div>
       )}
+
+      {/* Popup */}
       {showPopup && (
         <div style={{
           position: 'fixed',
@@ -222,32 +277,19 @@ const CarouselHomeWeb = () => {
             color: 'white',
             padding: '2rem',
             borderRadius: '10px',
-            maxWidth: '600px',
-            maxHeight: '80vh',
-            overflowY: 'auto',
-            textAlign: 'left'
+            width: '600px'
           }}>
-            <h2 style={{ textAlign: 'center', marginBottom: '1rem' }}>About Web Development</h2>
-            <p>Web development is the practice of building and maintaining websites and web applications. It includes frontend (what users see) and backend (server-side logic) development, databases, APIs, and deployment.</p>
-            <p>Key areas include:</p>
-            <ul style={{ marginLeft: '1.5rem', lineHeight: '1.6' }}>
-              <li><strong>Frontend:</strong> HTML, CSS, JavaScript, frameworks like React or Vue.</li>
-              <li><strong>Backend:</strong> Servers, databases, APIs, authentication and business logic.</li>
-              <li><strong>DevOps:</strong> CI/CD, containerization, and deployment.</li>
-              <li><strong>Testing:</strong> Unit, integration, and end-to-end testing.</li>
-              <li><strong>Accessibility:</strong> Making web apps usable for everyone.</li>
-            </ul>
-            <p>Explore the Frontend and Backend tracks to dive deeper!</p>
+            <h2>About Web Development</h2>
+
             <button
-              onClick={() => setShowPopup(false)}
+              onClick={() => { playClickSound(); setShowPopup(false); }}
               style={{
                 background: 'white',
                 color: 'black',
-                border: 'none',
                 padding: '0.5rem 1rem',
+                borderRadius: '5px',
                 cursor: 'pointer',
-                marginTop: '1rem',
-                borderRadius: '5px'
+                marginTop: '1rem'
               }}
             >
               Close

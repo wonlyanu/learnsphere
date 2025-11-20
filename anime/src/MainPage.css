@@ -25,37 +25,78 @@
 .mainpage-card {
   width: 320px;
   min-height: 220px;
-  background: rgba(255,255,255,0.04);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border: 2px solid rgba(255,255,255,0.12);
   padding: 1.2rem;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.6);
   cursor: pointer;
-  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.mainpage-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.mainpage-card h2,
+.mainpage-card p {
+  position: relative;
+  z-index: 1;
 }
 
 .mainpage-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.7);
-  background: rgba(255,255,255,0.06);
-}
-
-.mainpage-card h2 {
-  margin: 0 0 0.6rem 0;
-}
-
-.mainpage-card p {
-  margin: 0;
-  opacity: 0.9;
+  box-shadow: 0 14px 30px rgba(244, 240, 240, 0.7);
 }
 
 .mainpage-card.cybersecurity {
-  border-color: #00c27a;
+  border-color: #eee7e7;
 }
 
 .mainpage-card.webdev {
-  border-color: #4da6ff;
+  border-color: #edeff2;
+}
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  background: linear-gradient(90deg, #120d2b, #1d1335);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(21, 21, 45, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(255, 250, 250, 0.5);
+  background: linear-gradient(90deg, #13122f, #19173b);
+}
+
+/* Optional overlay for text visibility on image cards */
+.card-overlay {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
 }

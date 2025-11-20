@@ -15,20 +15,28 @@ export default function MainLanding() {
       <div className="overlay"></div>
 
       {/* Title */}
-      <h1 className="main-title">LearnSphere AI</h1>
+      <h5 className="main-title">Welcome - Choose a Path</h5>
 
       {/* Two Glowing Cards */}
       <div className="cards-container">
+        {/* 🌐 Frontend Adventure Card */}
         <Link to="/frontend" className="adventure-card frontend-card">
-          <h2>Frontend Adventure</h2>
-          <p>Master the art of web design and user interfaces</p>
-          <span className="arrow">→</span>
+          <div className="card-bg frontend-bg"></div>
+          <div className="card-content">
+            <h2>Frontend Adventure</h2>
+            <p>Master the art of web design and user interfaces</p>
+            <span className="arrow">→</span>
+          </div>
         </Link>
 
+        {/* ⚙️ Backend Adventure Card */}
         <Link to="/backend" className="adventure-card backend-card">
-          <h2>Backend Adventure</h2>
-          <p>Build powerful servers and APIs</p>
-          <span className="arrow">→</span>
+          <div className="card-bg backend-bg"></div>
+          <div className="card-content">
+            <h2>Backend Adventure</h2>
+            <p>Build powerful servers and APIs</p>
+            <span className="arrow">→</span>
+          </div>
         </Link>
       </div>
     </div>

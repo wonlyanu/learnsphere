@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 export default function BackendHomePage() {
   const words = [
-  "🗄️ Data Master",
-  "⚡ API Architect",
-  "🛠️ Server Engineer",
-  "🔒 Security Sentinel",
-  "🐍 Python Pro",
-  "☕ Java Guru",
-  "🧩 Microservice Magician",
-  "📦 Database Ninja",
-];
-
+    "🗄️ Data Master",
+    "⚡ API Architect",
+    "🛠️ Server Engineer",
+    "🔒 Security Sentinel",
+    "🐍 Python Pro",
+    "☕ Java Guru",
+    "🧩 Microservice Magician",
+    "📦 Database Ninja",
+  ];
 
   const [index, setIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
+  const navigate = useNavigate();
+  
+  // 🔊 Background audio only on this page
+  useEffect(() => {
+    const audio = new Audio("/1.mp3");
+    audio.loop = true;
+    audio.muted = true;     // allow autoplay
+    audio.play();
+
+    setTimeout(() => {
+      audio.muted = false;  // unmute after autoplay begins
+    }, 300);
+
+    return () => {
+      audio.pause();        // stop audio when leaving page
+      audio.currentTime = 0;
+    };
+  }, []);
 
   // Rotate words every 3 seconds
   useEffect(() => {
@@ -28,7 +45,7 @@ export default function BackendHomePage() {
 
   // Typing animation
   useEffect(() => {
-    setDisplayedText(""); // reset
+    setDisplayedText("");
     const word = words[index];
     let i = 0;
     const typing = setInterval(() => {
@@ -50,8 +67,13 @@ export default function BackendHomePage() {
       {/* Overlay */}
       <div className="overlay"></div>
 
+      {/* 🔙 Back Button */}
+      <button className="back-button" onClick={() => navigate("/")}>
+        ← Back
+      </button>
+
       {/* Center Gamified Card */}
-      <Link to="/levels" className="center-card">
+      <Link to="/backend-levels" className="center-card">
         <h1>Backend Adventure</h1>
         <i>
           <p className="swap-word">{displayedText}</p>
