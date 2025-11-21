@@ -1,6 +1,6 @@
-# TODO: Update Cards to Redirect Properly
+# TODO: Implement select.mp3 sound on selection in Cybersecurity.jsx and Webdev.jsx
 
-- [x] Edit main-project/src/components/Home.jsx to change the onClick handler for the Web Development card to goToWebgames() with login check
-- [x] Edit main-project/src/components/Home.jsx to add login check to Cyber Security card onClick (goToCybergames())
-- [x] Ensure both cards have consistent login checks and redirects
-- [x] Verify card texts: Cyber Security and Web Development with their descriptions
+- [x] Create learnsphere/src/utils/selectSound.js with playSelectSound function using /select.mp3
+- [x] Edit Cybersecurity.jsx: Import playSelectSound and add playSelectSound() to card onClick before setSelectedVideo
+- [x] Edit Webdev.jsx: Import playSelectSound and add playSelectSound() to card onClick before setSelectedVideo or goToWebgames
+- [x] Test sound plays on card clicks in both components

@@ -10,7 +10,7 @@
   overflow-x: hidden;
   position: relative;
 }
-  
+
 @keyframes cosmicDust {
   0%, 100% {
     transform: translateX(0) translateY(0) scale(1);
@@ -91,12 +91,31 @@
   transform: scale(1.05);
 }
 
-.hub-header h1 {
+.music-toggle-btn {
+  position: absolute;
+  top: -30px;
+  left: -15px;
+  background: linear-gradient(145deg, #4d0000, #1a0000);
+  color: #ff4d4d;
+  border: 1px solid #800000;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
   font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.3;
+}
+
+.music-toggle-btn:hover {
+  opacity: 1;
+}
+
+.hub-header h1 {
   font-size: 4rem;
   color: rgba(249, 246, 246, 0.818);
-  border: red, 2px;
-  text-shadow: purple;
+  border: 2px solid red;
+  text-shadow: 0 0 10px purple;
   letter-spacing: 3px;
   text-align: center;
   margin: 0;

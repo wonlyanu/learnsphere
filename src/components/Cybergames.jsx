@@ -1,6 +1,7 @@
 // CyberGamesHub.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import './Cybergames.css';
+import { playBackgroundMusic, playBackgroundMusicNoFile, stopBackgroundMusic, pauseBackgroundMusic, resumeBackgroundMusic, playSuccessSound } from '../utils/backgroundMusic';
 
 // Import GIFs for game interactions
 const fireAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNpc21jNDcxdjVlZmZoa3BiaGJ1OHIzbzM2bDBpaXU2YzIxc3NoMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9B7XwCQZRQfQs/giphy.gif";
@@ -12,6 +13,7 @@ const balloonAnimation = "https://media.giphy.com/media/l41K4kQkLJ1Xy2V9y/giphy.
 
 const CyberGamesHub = ({ goBack }) => {
   const videoRef = useRef(null);
+  const audioRef = useRef(null);
   const [activeGame, setActiveGame] = useState(null);
   const [gameData, setGameData] = useState({
     score: 0,
@@ -20,6 +22,8 @@ const CyberGamesHub = ({ goBack }) => {
     unlockedGames: ['escape']
   });
   const [showAchievements, setShowAchievements] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [musicPaused, setMusicPaused] = useState(false);
 
     
   const games = [
@@ -82,6 +86,17 @@ const CyberGamesHub = ({ goBack }) => {
     }
   }, [gameData.level, games]);
 
+  // Auto-play background music when component mounts
+  useEffect(() => {
+    playBackgroundMusicNoFile();
+    setMusicPlaying(true);
+
+    // Stop music when component unmounts
+    return () => {
+      stopBackgroundMusic();
+    };
+  }, []);
+
   // Video controls
   useEffect(() => {
     if (videoRef.current) {
@@ -98,11 +113,16 @@ const CyberGamesHub = ({ goBack }) => {
       const newScore = prev.score + points;
       const newLevel = Math.floor(newScore / 200) + 1;
       let newAchievements = [...prev.achievements];
-      
+
       if (achievement && !prev.achievements.includes(achievement)) {
         newAchievements = [...newAchievements, achievement];
       }
-      
+
+      // Play success sound when level increases
+      if (newLevel > prev.level) {
+        playSuccessSound();
+      }
+
       return {
         ...prev,
         score: newScore,
@@ -110,6 +130,22 @@ const CyberGamesHub = ({ goBack }) => {
         achievements: newAchievements
       };
     });
+  };
+
+  const toggleMusic = () => {
+    if (musicPlaying) {
+      pauseBackgroundMusic();
+      setMusicPlaying(false);
+      setMusicPaused(true);
+    } else {
+      if (musicPaused) {
+        resumeBackgroundMusic();
+        setMusicPaused(false);
+      } else {
+        playBackgroundMusicNoFile();
+      }
+      setMusicPlaying(true);
+    }
   };
 
   const startGame = (gameId) => {
@@ -134,6 +170,9 @@ const CyberGamesHub = ({ goBack }) => {
 
 <header className="hub-header">
   <button className="back-btn" onClick={goBack}>← Back to Home</button>
+  <button className="music-toggle-btn" onClick={toggleMusic}>
+    {musicPlaying ? '🔊' : '🔇'}
+  </button>
 
   <h1
     style={{

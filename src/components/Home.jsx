@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
+import { playClickSound } from "../utils/clickSound";
 
 // ---------------- Typewriter Component ----------------
 const TypewriterText = ({ text = "", speed = 50 }) => {
@@ -143,6 +144,7 @@ const Home = ({
          <button
   className="get-started"
   onClick={() => {
+    playClickSound();
     const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
     if (savedUser?.loggedIn) goToOnboarding();
     else window.openSignupPopup(); // this triggers Navbar signup
@@ -176,6 +178,7 @@ const Home = ({
         className="course-card"
         onClick={(e) => {
           e.stopPropagation();
+          playClickSound();
           goToCybergames();
         }}
       >
@@ -201,6 +204,7 @@ const Home = ({
         className="course-card"
         onClick={(e) => {
           e.stopPropagation();
+          playClickSound();
           goToWebgames();
         }}
       >
@@ -281,7 +285,10 @@ const Home = ({
             <span
               key={i}
               className={`dot ${currentSlide === i ? "active" : ""}`}
-              onClick={() => goToSlide(i)}
+              onClick={() => {
+                playClickSound();
+                goToSlide(i);
+              }}
             ></span>
           ))}
         </div>

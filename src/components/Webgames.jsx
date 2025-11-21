@@ -1,6 +1,8 @@
 // WebGames.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import './WebGames.css';
+import { playBackgroundMusic, stopBackgroundMusic } from '../utils/backgroundMusic';
+import { playClickSound } from '../utils/clickSound';
 
 // Import GIFs for game interactions
 
@@ -88,6 +90,17 @@ const WebGamesHub = ({ goBack }) => {
     }
   }, [activeGame]);
 
+  // Background music controls
+  useEffect(() => {
+    // Start background music when component mounts
+    playBackgroundMusic('games.mp3');
+
+    // Stop music when component unmounts
+    return () => {
+      stopBackgroundMusic();
+    };
+  }, []);
+
   const updateScore = (points, achievement) => {
     setGameData(prev => {
       const newScore = prev.score + points;
@@ -128,7 +141,7 @@ const WebGamesHub = ({ goBack }) => {
       />
 
       <header className="hub-header">
-        <button className="back-btn" onClick={goBack}>← Back to Home</button>
+        <button className="back-btn" onClick={() => { playClickSound(); goBack(); }}>← Back to Home</button>
 
         <h1
           style={{
@@ -158,7 +171,7 @@ const WebGamesHub = ({ goBack }) => {
           <span className="label">Score:</span>
           <span className="value">{gameData.score}</span>
         </div>
-        <div className="stat-badge achievements-badge" onClick={() => setShowAchievements(!showAchievements)}>
+        <div className="stat-badge achievements-badge" onClick={() => { playClickSound(); setShowAchievements(!showAchievements); }}>
           <span className="label">Achievements:</span>
           <span className="value">{gameData.achievements.length}</span>
         </div>

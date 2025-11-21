@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
+import { playSelectSound } from "../utils/selectSound";
 
 export default function Webdev({
   goBack,
@@ -218,6 +219,7 @@ export default function Webdev({
                 transition={{ duration: 0.4 }}
                 whileHover={{ y: -10 }}
                 onClick={() => {
+                  playSelectSound();
                   if (card.title === "Web Development") {
                     goToWebgames();
                   } else {

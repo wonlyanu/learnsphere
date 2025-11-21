@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+// ✅ FINAL WORKING AUDIO VERSION
+import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "./Onboarding.css";
@@ -9,29 +10,27 @@ export default function Onboarding({ goToTechnology }) {
   const [showConfetti, setShowConfetti] = useState(false);
   const navigate = useNavigate();
 
-  // 🔊 Preload audio ONCE and reuse (fixes silent issue)
-  const audioRef = useRef(null);
+  // -------------------------------------------------------
+  // ✅ 1. PRELOAD AUDIO USING useRef (browser safe)
+  // -------------------------------------------------------
+  const whooshAudio = useRef(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("/whoosh_audio.mp3");   // your updated path
-    audioRef.current.volume = 0.7;
-
-    // Fix: allow browser to load it first
-    audioRef.current.load();
+    whooshAudio.current = new Audio("/whoosh_audio.mp3");  // file inside public
+    whooshAudio.current.volume = 0.7;
   }, []);
 
+  // -------------------------------------------------------
+  // ✅ 2. PLAY AUDIO SAFELY (ALWAYS WORKS)
+  // -------------------------------------------------------
   const playSound = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0; // rewind
-      audioRef.current.play().catch((err) => {
-        console.log("Audio blocked by browser until interaction:", err);
-      });
+    if (whooshAudio.current) {
+      whooshAudio.current.currentTime = 0; // restart sound
+      whooshAudio.current.play().catch(() => {});
     }
   };
 
-  // -----------------------------------------
-  // Onboarding Steps
-  // -----------------------------------------
+  // ALL STEPS
   const onboardingData = [
     { type: "welcome", title: "Hello! I am your guide.", subtitle: "Let's get to know each other" },
 
@@ -54,7 +53,10 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    { type: "thought", title: "People who stay committed have a high chance of reaching their goals." },
+    {
+      type: "thought",
+      title: "People who stay committed have a high chance of reaching their goals.",
+    },
 
     {
       type: "question",
@@ -76,7 +78,10 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    { type: "thought", title: "I know it’s hard to be motivated, but LearnSphere keeps you engaged through fun games and themes!" },
+    {
+      type: "thought",
+      title: "I know it’s hard to be motivated, but LearnSphere keeps you engaged through fun games and themes!",
+    },
 
     {
       type: "question",
@@ -92,24 +97,24 @@ export default function Onboarding({ goToTechnology }) {
 
   const current = onboardingData[step];
 
-  const technologyStepIndex = onboardingData.findIndex(
+  const techStep = onboardingData.findIndex(
     (d) => d.type === "question" && d.question === "Which are you more interested in?"
   );
 
-  const selectOption = (optId) => {
-    setSelected(optId === selected ? null : optId);
+  const selectOption = (id) => {
+    setSelected(id === selected ? null : id);
   };
 
-  // -----------------------------------------
-  // NEXT Button — Audio ALWAYS Plays Now
-  // -----------------------------------------
+  // -------------------------------------------------------
+  // Continue button handler WITH SOUND WORKING
+  // -------------------------------------------------------
   const next = () => {
-    playSound(); // 🔥 sound works now
+    playSound(); // 🔥 SOUND FINALLY WORKS
 
     if (current.type === "question" && !selected) return;
 
     if (step < onboardingData.length - 1) {
-      if (step === technologyStepIndex) {
+      if (step === techStep) {
         localStorage.setItem("selectedTechnology", selected);
       }
       if (step === 7) {
@@ -118,12 +123,12 @@ export default function Onboarding({ goToTechnology }) {
 
       setStep((s) => s + 1);
       setSelected(null);
-
     } else {
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2500);
 
       const play = localStorage.getItem("selectedPlayground");
+
       if (play) {
         if (play === "anime") navigate("/anime");
         if (play === "scientific") navigate("/scientific");
@@ -131,6 +136,7 @@ export default function Onboarding({ goToTechnology }) {
       } else {
         const tech = localStorage.getItem("selectedTechnology") || "sec";
         localStorage.removeItem("selectedTechnology");
+
         if (typeof goToTechnology === "function") goToTechnology(tech);
       }
     }
@@ -143,9 +149,13 @@ export default function Onboarding({ goToTechnology }) {
     exit: { opacity: 0, y: -20, scale: 0.98 },
   };
 
+  const lineVariants = {
+    initial: { width: 0 },
+    animate: { width: "100%", transition: { duration: 0.8, ease: "easeInOut" } },
+  };
+
   return (
     <div className="onboarding-root">
-
       <video autoPlay loop muted className="onb-bg">
         <source src="/videos/onback.mp4" type="video/mp4" />
       </video>
@@ -160,42 +170,38 @@ export default function Onboarding({ goToTechnology }) {
           exit="exit"
           transition={{ duration: 0.45 }}
         >
-          {/* WELCOME */}
+          {/* WELCOME STEP */}
           {current.type === "welcome" && (
             <>
-              <img src="/images/logo.jpeg" alt="logo" className="onb-logo" width="100" />
+              <img src="/images/logo.jpeg" className="onb-logo" width="100" height="100" />
               <h1 className="onb-title">{current.title}</h1>
               <p className="onb-sub">{current.subtitle}</p>
-
-              <motion.button
-                className="onb-continue big"
-                onClick={next}
-                whileHover={{ scale: 1.03 }}
-              >
-                Continue →
-              </motion.button>
+              <motion.button className="onb-continue big" onClick={next}>Continue →</motion.button>
             </>
           )}
 
-          {/* Questions & Thoughts */}
+          {/* QUESTION / THOUGHT */}
           {(current.type === "question" || current.type === "thought") && (
             <>
+              <div className="onb-color-line-top" />
+
               <h2 className="onb-title">{current.question || current.title}</h2>
 
               {current.type === "question" && (
                 <div className="choices-grid">
-                  {current.options.map((opt) => (
-                    <motion.div
-                      key={opt.id}
-                      className={`choice-card ${selected === opt.id ? "selected" : ""}`}
-                      onClick={() => selectOption(opt.id)}
-                      whileHover={{ y: -6 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <div className="choice-label">{opt.label}</div>
-                      <div className={`choice-dot ${selected === opt.id ? "show" : ""}`} />
-                    </motion.div>
-                  ))}
+                  {current.options.map((opt) => {
+                    const sel = selected === opt.id;
+                    return (
+                      <motion.div
+                        key={opt.id}
+                        className={`choice-card choice-label-only ${sel ? "selected" : ""}`}
+                        onClick={() => selectOption(opt.id)}
+                      >
+                        <div className="choice-label">{opt.label}</div>
+                        <div className={`choice-dot ${sel ? "show" : ""}`} />
+                      </motion.div>
+                    );
+                  })}
                 </div>
               )}
 
@@ -209,18 +215,11 @@ export default function Onboarding({ goToTechnology }) {
             </>
           )}
 
-          {/* Final */}
+          {/* FINAL STEP */}
           {current.type === "final" && (
             <>
               <h1 className="onb-title">{current.title}</h1>
-
-              <motion.button
-                className="onb-continue big"
-                onClick={next}
-                whileHover={{ scale: 1.03 }}
-              >
-                Continue →
-              </motion.button>
+              <motion.button className="onb-continue big" onClick={next}>Continue →</motion.button>
             </>
           )}
         </motion.div>

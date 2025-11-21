@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
+import { playSelectSound } from "../utils/selectSound";
 
 export default function Cybersecurity({
   goBack,
@@ -216,7 +217,10 @@ export default function Cybersecurity({
                 exit={{ opacity: 0, y: -50 }}
                 transition={{ duration: 0.4 }}
                 whileHover={{ y: -10 }}
-                onClick={() => setSelectedVideo(card.index)}
+                onClick={() => {
+                  playSelectSound();
+                  setSelectedVideo(card.index);
+                }}
               >
                 <div className="card-badge">
                   <span className={`difficulty ${card.difficulty.toLowerCase()}`}>

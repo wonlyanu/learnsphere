@@ -1,5 +1,5 @@
 // In Onboarding.jsx
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Onboarding.css"; // <--- ADD THIS LINE (OR UNCOMMENT IT)
 
@@ -9,7 +9,22 @@ export default function Onboarding({ goToTechnology }) {
   const [step, setStep] = useState(1); // STARTING AT STEP 1 (Interest Question)
   const [selected, setSelected] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showLines, setShowLines] = useState(false); 
+  const [showLines, setShowLines] = useState(false);
+
+  // Audio setup
+  const whooshAudio = useRef(null);
+
+  useEffect(() => {
+    whooshAudio.current = new Audio("/whoosh_audio.mp3");
+    whooshAudio.current.volume = 0.7;
+  }, []);
+
+  const playSound = () => {
+    if (whooshAudio.current) {
+      whooshAudio.current.currentTime = 0;
+      whooshAudio.current.play().catch(() => {});
+    }
+  };
   
   // Adjusted STARTING step to 1 to match the screenshot state.
   // You might want to keep it at 0 if you want the 'Welcome' step to show first.
@@ -92,6 +107,8 @@ export default function Onboarding({ goToTechnology }) {
   const selectOption = (optId) => setSelected(optId === selected ? null : optId);
 
   const next = () => {
+    playSound(); // Play sound on continue
+
     // Check if a selection is required for 'question' type steps
     if (current.type === "question" && !selected) return;
 
