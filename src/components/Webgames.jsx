@@ -6,10 +6,10 @@ import { playClickSound } from '../utils/clickSound';
 
 // Import GIFs for game interactions
 
-const layoutAnimation = "https://media.giphy.com/media/L8K62iLin5mBi/giphy.gif";
-const jsAnimation = "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif";
+const layoutAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNpc21jNDcxdjVlZmZoa3BiaGJ1OHIzbzM2bDBpaXU2YzIxc3NoMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9B7XwCQZRQfQs/giphy.gif";
+const jsAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmd5cTIyamN4bGdyYWdhMGJqbXo2ajFvMWN1dmxsbGlpdTVxbmdkNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5e25aUTZPcI94uMZgv/giphy.gif`";
 const responsiveAnimation = "https://media.giphy.com/media/f6hnhH1h4K1DvwuQKU/giphy.gif";
-const deployAnimation = "https://media.giphy.com/media/TN59vJVGu1izS/giphy.gif";
+const deployAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNpc21jNDcxdjVlZmZoa3BiaGJ1OHIzbzM2bDBpaXU2YzIxc3NoMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9B7XwCQZRQfQs/giphy.gif";
 
 const WebGamesHub = ({ goBack }) => {
   const videoRef = useRef(null);

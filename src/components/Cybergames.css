@@ -592,7 +592,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #999;
+  color: transparent;
   z-index: 2;
   border: 2px solid #555;
   position: relative;
@@ -600,7 +600,7 @@
 
 .step.active {
   background: #ff0000;
-  color: white;
+  color: transparent;
   border-color: #ff4d4d;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
   animation: pulse 1.5s infinite;

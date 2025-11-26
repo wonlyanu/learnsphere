@@ -1,17 +1,16 @@
-// In Onboarding.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import "./Onboarding.css"; // <--- ADD THIS LINE (OR UNCOMMENT IT)
+import "./Onboarding.css";
 
-// ... rest of your component
+const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
 export default function Onboarding({ goToTechnology }) {
-  const [step, setStep] = useState(1); // STARTING AT STEP 1 (Interest Question)
+  const [step, setStep] = useState(1);
   const [selected, setSelected] = useState(null);
+  const [email, setEmail] = useState("");
+  const [showAiNotification, setShowAiNotification] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showLines, setShowLines] = useState(false);
 
-  // Audio setup
   const whooshAudio = useRef(null);
 
   useEffect(() => {
@@ -25,16 +24,11 @@ export default function Onboarding({ goToTechnology }) {
       whooshAudio.current.play().catch(() => {});
     }
   };
-  
-  // Adjusted STARTING step to 1 to match the screenshot state.
-  // You might want to keep it at 0 if you want the 'Welcome' step to show first.
 
-  // --- UPDATED onboardingData: Images removed per user request ---
+  // --- FINAL MERGED ONBOARDING DATA ---
   const onboardingData = [
-    // Step 0: Welcome (If step is 0)
     { type: "welcome", title: "Hello! I am your guide.", subtitle: "Let's get to know each other" },
 
-    // Step 1: Interest (Image removed) - CORRESPONDS TO SCREENSHOT
     {
       type: "question",
       question: "Which are you more interested in?",
@@ -44,7 +38,6 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    // Step 2: Motivation (Image removed)
     {
       type: "question",
       question: "Why are you learning skills for?",
@@ -55,10 +48,8 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    // Step 3: Commitment Thought
-    { type: "thought", title: "People who stay committed have a high chance of reaching their goals. " },
+    { type: "thought", title: "People who stay committed have a high chance of reaching their goals." },
 
-    // Step 4: Time Commitment (Image removed)
     {
       type: "question",
       question: "How much of your time are you gonna commit for your skill?",
@@ -70,7 +61,6 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    // Step 5: Daily Reminder (Image removed)
     {
       type: "question",
       question: "Do you want LearnSphere to send you daily reminders?",
@@ -80,10 +70,11 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    // Step 6: Motivation Thought
-    { type: "thought", title: "I know its hard to be motivated, but LearnSphere keeps you engaging through fun games, themes... so dive in! " },
+    // NEW EMAIL STEP
+    { type: "email_prompt", title: "Email Prompt" },
 
-    // Step 7: Personal Playground (Image removed)
+    { type: "thought", title: "LearnSphere keeps you motivated through games, themes and more!" },
+
     {
       type: "question",
       question: "Before diving in, choose your personal playground",
@@ -93,66 +84,95 @@ export default function Onboarding({ goToTechnology }) {
       ],
     },
 
-    // Step 8: Final Step
-    { type: "final", title: "You're ready — let's learn! " },
+    { type: "final", title: "You're ready — let's learn!" },
   ];
-  // -------------------------------------------------------------------
 
   const current = onboardingData[step];
-  
-  // Adjusted index 1 for technology selection to handle the case where
-  // the initial step is 0 (Welcome) or 1 (Interest).
-  const technologyStepIndex = onboardingData.findIndex(d => d.type === "question" && d.question === "Which are you more interested in?");
 
-  const selectOption = (optId) => setSelected(optId === selected ? null : optId);
+  const technologyStepIndex = 1;
+  const reminderStepIndex = 5;
+  const emailPromptIndex = 6;
+  const playgroundStepIndex = 8;
 
-  const next = () => {
-    playSound(); // Play sound on continue
+  const selectOption = (optId) => {
+    setSelected(optId === selected ? null : optId);
+  };
 
-    // Check if a selection is required for 'question' type steps
+  const next = async () => {
+    playSound();
+
+    //--- Requirement checks ---
     if (current.type === "question" && !selected) return;
 
-    // Handle navigation logic
-    if (step < onboardingData.length - 1) {
-      // If we're moving from the technology question (step 1 in the array, index 1)
-      if (step === technologyStepIndex) {
-        // Save the selected technology before moving on
-        localStorage.setItem("selectedTechnology", selected);
+    let nextStep = step + 1;
+
+    //--- Handle Reminder Step ---
+    if (step === reminderStepIndex) {
+      localStorage.setItem("dailyReminder", selected);
+
+      if (selected === "skip") {
+        nextStep = emailPromptIndex + 1;
       }
-      // If we're moving from the playground question (step 7)
-      if (step === 7) {
-        // Save the selected playground
-        localStorage.setItem("selectedPlayground", selected);
+    }
+
+    //--- Handle Email Step ---
+    if (step === emailPromptIndex) {
+      if (!isValidEmail(email)) return;
+
+      localStorage.setItem("userEmail", email);
+
+      setShowAiNotification(true);
+
+      try {
+        await fetch("http://localhost:5000/api/reminder", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            allow: localStorage.getItem("dailyReminder"),
+          }),
+        });
+      } catch (error) {
+        console.error("Reminder API Failed:", error);
       }
-      setStep((s) => s + 1);
-      setSelected(null); // Clear selection for the next step
-    } else {
-      // Final Step Logic
+
+      setTimeout(() => {
+        setShowAiNotification(false);
+        setStep(nextStep);
+      }, 1500);
+
+      return;
+    }
+
+    //--- Saving Preferences ---
+    if (step === technologyStepIndex) {
+      localStorage.setItem("selectedTechnology", selected);
+    }
+
+    if (step === playgroundStepIndex) {
+      localStorage.setItem("selectedPlayground", selected);
+    }
+
+    //--- Final Step ---
+    if (nextStep >= onboardingData.length) {
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2500);
 
-      // Check if playground was selected
-      const selectedPlayground = localStorage.getItem("selectedPlayground");
-      if (selectedPlayground) {
-        // Redirect to subapp based on playground
-        if (selectedPlayground === "anime") {
-          window.location.href = "http://localhost:3000"; // Anime runs on 3000
-        } else if (selectedPlayground === "scientific") {
-          window.location.href = "http://localhost:5174"; // Scientific runs on 5177
-        }
-        localStorage.removeItem("selectedPlayground"); // Clean up
-      } else {
-        // Fallback to technology page
-        if (typeof goToTechnology === "function") {
-          const selectedTechId = localStorage.getItem("selectedTechnology") || "sec"; // Default to 'sec'
-          localStorage.removeItem("selectedTechnology"); // Clean up storage
-          goToTechnology(selectedTechId);
-        }
+      const play = localStorage.getItem("selectedPlayground");
+
+      if (play) {
+        if (play === "anime") window.location.href = "http://localhost:3000";
+        if (play === "scientific") window.location.href = "http://localhost:5174";
       }
+
+      return;
     }
+
+    setSelected(null);
+    setStep(nextStep);
   };
 
-
+  // --- Framer Variants ---
   const cardVariants = {
     enter: { opacity: 0, y: 20, scale: 0.98 },
     center: { opacity: 1, y: 0, scale: 1 },
@@ -161,18 +181,14 @@ export default function Onboarding({ goToTechnology }) {
 
   const lineVariants = {
     initial: { width: 0 },
-    animate: { width: "100%", transition: { duration: 0.8, ease: "easeInOut" } },
+    animate: { width: "100%", transition: { duration: 0.8 } },
   };
 
   return (
     <div className="onboarding-root">
-      {/* Video background - assuming '/videos/onback.mp4' is available */}
       <video autoPlay loop muted className="onb-bg">
         <source src="/videos/onback.mp4" type="video/mp4" />
       </video>
-
-      {/* Confetti (Removed for simplicity, state kept for potential future re-implementation) */}
-      {/* {showConfetti && <Confetti recycle={false} numberOfPieces={140} />} */}
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -184,36 +200,69 @@ export default function Onboarding({ goToTechnology }) {
           exit="exit"
           transition={{ duration: 0.45 }}
         >
-          {/* Welcome Step */}
-          {current.type === "welcome" && (
+
+          {/* ---------- EMAIL STEP UI ---------- */}
+          {current.type === "email_prompt" && (
             <>
-              {/* Assuming '/images/logo.jpeg' is available */}
-              <img src="/images/logo.jpeg" alt="LearnSphere Logo" className="onb-logo" width="100" height="100" />
-              <h1 className="onb-title neon">{current.title}</h1>
-              <p className="onb-sub">{current.subtitle}</p>
-              <motion.button
-                className="onb-continue big"
-                onClick={next}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Continue →
-              </motion.button>
+              <motion.div className="onb-color-line-top" variants={lineVariants} initial="initial" animate="animate" />
+              <h2 className="onb-title neon">Where should we send your reminders?</h2>
+
+              <AnimatePresence mode="wait">
+                {showAiNotification ? (
+                  <motion.div
+                    key="ai-notif"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="ai-notification-block"
+                  >
+                    🤖 <p>Confirmed! Reminders will be sent to <b>{email}</b></p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="email-box"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="onb-email-input-container"
+                  >
+                    <p className="onb-sub">Enter your email address</p>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className="onb-email-input"
+                    />
+                    <motion.button
+                      className="onb-continue send-btn"
+                      onClick={next}
+                      disabled={!isValidEmail(email)}
+                    >
+                      Send →
+                    </motion.button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </>
           )}
 
-          {/* Questions & Thoughts */}
-          {(current.type === "question" || current.type === "thought") && (
+          {/* ---------- DEFAULT UI (Questions, Thoughts, Welcome, Final) ---------- */}
+          {(current.type === "welcome" ||
+            current.type === "question" ||
+            current.type === "thought" ||
+            current.type === "final") && (
             <>
-              {/* Top animated rainbow line */}
-              <motion.div
-                className="onb-color-line-top"
-                variants={lineVariants}
-                initial="initial"
-                animate="animate"
-              />
+              {(current.type !== "welcome" && current.type !== "final") && (
+                <motion.div
+                  className="onb-color-line-top"
+                  variants={lineVariants}
+                  initial="initial"
+                  animate="animate"
+                />
+              )}
 
-              <h2 className="onb-title neon">{current.question || current.title}</h2>
+              <h2 className="onb-title neon">{current.title || current.question}</h2>
 
               {current.type === "question" && (
                 <div className="choices-grid">
@@ -222,43 +271,22 @@ export default function Onboarding({ goToTechnology }) {
                     return (
                       <motion.div
                         key={opt.id}
-                        // Added 'choice-label-only' class for specific styling changes
                         className={`choice-card choice-label-only ${isSel ? "selected" : ""}`}
                         onClick={() => selectOption(opt.id)}
                         whileHover={{ y: -6 }}
-                        whileTap={{ scale: 0.98 }}
                       >
-                        {/* The card now contains only the label and the selection indicator */}
                         <div className="choice-label">{opt.label}</div>
-                        {/* MODIFIED: Selection indicator is a small, filled circle (dot) */}
                         <div className={`choice-dot ${isSel ? "show" : ""}`} />
                       </motion.div>
                     );
                   })}
                 </div>
               )}
-              
+
               <motion.button
                 className="onb-continue"
                 onClick={next}
-                // Button is disabled if it's a question step and no option is selected
                 disabled={current.type === "question" && !selected}
-                whileHover={{ scale: selected || current.type === "thought" ? 1.03 : 1 }}
-              >
-                Continue →
-              </motion.button>
-            </>
-          )}
-
-          {/* Final Step */}
-          {current.type === "final" && (
-            <>
-              <h1 className="onb-title neon">{current.title}</h1>
-              <motion.button
-                className="onb-continue big"
-                onClick={next}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
               >
                 Continue →
               </motion.button>
@@ -266,9 +294,6 @@ export default function Onboarding({ goToTechnology }) {
           )}
         </motion.div>
       </AnimatePresence>
-
-      {/* Colorful paper fall (Commented out) */}
-      {/* ... (Motion divs for confetti effect) */}
     </div>
   );
 }

@@ -223,7 +223,7 @@ const Navbar = ({
             </div>
             <div className="auth-right">
               <button className="close-btn" onClick={() => setShowSignup(false)}>
-                ✖
+              ✖
               </button>
               <h2>{isLogin ? "Login" : "Sign Up"}</h2>
               <form onSubmit={handleSubmit}>

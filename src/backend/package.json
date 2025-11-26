@@ -12,11 +12,11 @@
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.19.3",
+    "mongoose": "^8.20.1",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.10"
   },
-  "description": "",
+  "description": "��b\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000f\u0000i\u0000l\u0000e\u0000s\u0000\r\u0000 \u0000",
   "keywords": [],
   "author": "",
   "license": "ISC"

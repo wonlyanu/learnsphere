@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
 import { playClickSound } from "../utils/clickSound";
 
-// ---------------- Typewriter Component ----------------
 const TypewriterText = ({ text = "", speed = 50 }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);

@@ -5,10 +5,10 @@ import { playBackgroundMusic, playBackgroundMusicNoFile, stopBackgroundMusic, pa
 
 // Import GIFs for game interactions
 const fireAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNpc21jNDcxdjVlZmZoa3BiaGJ1OHIzbzM2bDBpaXU2YzIxc3NoMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9B7XwCQZRQfQs/giphy.gif";
-const lockAnimation = "https://media.giphy.com/media/tIeCLkB8geYtW/giphy.gif";
+const lockAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmd5cTIyamN4bGdyYWdhMGJqbXo2ajFvMWN1dmxsbGlpdTVxbmdkNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5e25aUTZPcI94uMZgv/giphy.gif";
 const shieldAnimation = "https://media.giphy.com/media/WoWm8YzFQJg5W/giphy.gif";
 const hackerAnimation = "https://media.giphy.com/media/3o7qE1YN7aBOFPRw8E/giphy.gif";
-const balloonAnimation = "https://media.giphy.com/media/l41K4kQkLJ1Xy2V9y/giphy.gif";
+const balloonAnimation = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNpc21jNDcxdjVlZmZoa3BiaGJ1OHIzbzM2bDBpaXU2YzIxc3NoMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9B7XwCQZRQfQs/giphy.gif";
 
 
 const CyberGamesHub = ({ goBack }) => {

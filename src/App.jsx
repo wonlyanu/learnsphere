@@ -95,9 +95,14 @@ function App() {
             zIndex: 9999,
           }}
         >
-          <img
+          <video
             src="/videos/cyberload.gif"
-            alt="Loading..."
+            autoPlay
+            muted
+            onEnded={() => {
+              setCurrentPage("cybergames");
+              setLoading(false);
+            }}
             style={{
               width: "100%",
               height: "100%",
